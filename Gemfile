@@ -47,6 +47,3 @@ gem 'devise'
 
 gem 'bootstrap-sass'
 gem 'simple_form'
-
-gem 'rmagick'
-gem 'carrierwave'

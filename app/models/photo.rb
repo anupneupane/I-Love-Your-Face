@@ -1,5 +1,4 @@
 class Photo < ActiveRecord::Base
-	attr_accessible :user_id, :location, :type, :date_taken, :approved, :image
+	attr_accessible :user_id, :location, :type, :date_taken, :approved
 
-	mount_uploader :image, ImageUploader
 end
