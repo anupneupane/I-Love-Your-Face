@@ -1,3 +1,5 @@
+require_relative '../initializers/keys.rb'
+
 Facemate::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -40,9 +42,8 @@ Facemate::Application.configure do
   config.paperclip_defaults = {
   :storage => :s3,
   :s3_credentials => {
-    :bucket => YOUR_BUCKET_NAME,
-    :access_key_id => ACCESS_KEY_ID,
-    :secret_access_key => SECRET_ACCESS_KEY
-    }
+    :bucket => "facemate_dev",
+    :access_key_id => ENV['S3_KEY'],
+    :secret_access_key => ENV['S3_SECRET']
   }
 end

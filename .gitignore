@@ -14,4 +14,4 @@
 /log/*.log
 /tmp
 
-secrets.rb
+keys.rb
