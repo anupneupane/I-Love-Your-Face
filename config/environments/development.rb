@@ -39,11 +39,14 @@ Facemate::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+  Paperclip.options[:command_path] = "c:/ImageMagick"
+
   config.paperclip_defaults = {
   :storage => :s3,
   :s3_credentials => {
     :bucket => "facemate_dev",
     :access_key_id => ENV['S3_KEY'],
     :secret_access_key => ENV['S3_SECRET']
+    }
   }
 end
