@@ -1,7 +1,11 @@
 
 <h1>here's a small picture</h1>
-<img src="<%= @photo.image.url(:small) %>" height="50" width="50">
+<img src="<%= @photo.image.url(:thumb) %>">
 <br>
 <h1>and the same one bigger</h1>
-	<img src="<%= @photo.image.url(:big) %>">
+	<img src="<%= @photo.image.url(:small) %>">
 <br>
+<h1>and the same one bigger</h1>
+	<img src="<%= @photo.image.url(:large) %>">
+<br>
+
