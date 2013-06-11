@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :token_authenticatable, :confirmable
+         :token_authenticatable
+         # , :confirmable
 
   attr_accessor :login
   # Setup accessible (or protected) attributes for your model
@@ -20,4 +21,9 @@ class User < ActiveRecord::Base
 	  end
 	end
   
+  has_many :photos
+
+  has_many :types
+
+  has_many :occurances_as_match, class_name: "TypeMatch", foreign_key: :user_id
 end

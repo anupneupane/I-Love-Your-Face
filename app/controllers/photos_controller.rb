@@ -1,4 +1,15 @@
 class PhotosController < ApplicationController 
+	before_filter :authenticate_user!
+
+	def index 
+		if params[:user_id]
+			@viewed_user = User.find(params[:user_id])
+			@photos = @viewed_user.photos.where(is_user: true)
+		end
+
+		puts "NOOOOOOO"
+	end 
+
 
 	def new
 		@photo = Photo.new
@@ -6,11 +17,12 @@ class PhotosController < ApplicationController
 
 	def create 
 		@photo = Photo.new(params[:photo])
+		@photo.user_id = current_user.id 
 
 		if @photo.save!
-			puts "success!"
+			redirect_to :back
 		else
-			puts "failure!"
+			redirect_to :back
 		end
 	end
 

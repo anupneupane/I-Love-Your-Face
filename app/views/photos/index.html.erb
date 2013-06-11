@@ -1,0 +1,5 @@
+<h1>this person's photos</h1>
+
+<% @photos.each do |photo| %>
+	<img src="<%= photo.image.url(:large) %>">
+<% end %> 

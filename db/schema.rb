@@ -11,12 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130610233855) do
+ActiveRecord::Schema.define(:version => 20130611172704) do
 
   create_table "photos", :force => true do |t|
     t.integer  "user_id"
-    t.string   "type"
-    t.date     "date_taken"
     t.boolean  "single_person"
     t.boolean  "approved"
     t.datetime "created_at",         :null => false
@@ -25,9 +23,34 @@ ActiveRecord::Schema.define(:version => 20130610233855) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.boolean  "is_user"
+    t.integer  "photo_age"
+    t.string   "photo_type"
   end
 
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
+
+  create_table "type_matches", :force => true do |t|
+    t.integer "user_id"
+    t.integer "type_id"
+  end
+
+  add_index "type_matches", ["type_id"], :name => "index_type_matches_on_type_id"
+  add_index "type_matches", ["user_id"], :name => "index_type_matches_on_user_id"
+
+  create_table "type_photos", :force => true do |t|
+    t.integer "type_id"
+    t.integer "photo_id"
+  end
+
+  add_index "type_photos", ["photo_id"], :name => "index_type_photos_on_photo_id"
+  add_index "type_photos", ["type_id"], :name => "index_type_photos_on_type_id"
+
+  create_table "types", :force => true do |t|
+    t.integer "user_id"
+  end
+
+  add_index "types", ["user_id"], :name => "index_types_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
