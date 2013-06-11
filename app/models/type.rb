@@ -12,4 +12,7 @@ class Type < ActiveRecord::Base
 	accepts_nested_attributes_for :photos 
 	# , reject_if: lambda { |attributes| attributes["image"].blank? }
 
+
+
+
 end
