@@ -1,0 +1,49 @@
+<h1>Like someone's face? Add their pictures!</h1>
+<p>NOTE: Only add good headshots of the person you're thinking of. The better quality the pictures, the better the results</p>
+<br>
+<p>coming soon... Pick someone from facebook!</p>
+<p>coming soon... Pick someone already on our site!</p>
+
+
+<%= form_for(@type) do |f| %>
+	<%= f.fields_for(:photos) do |p| %>
+		<%= render partial: "photos/add_type_photo", locals: {f: p} %> 
+	<% end %>
+	<h3>Add more pics for better results!</h3>
+	<div class="btn" id="add-type-pics">Add Another Pic</div>
+	<div class="additional-type-pics"></div>
+	<%= f.submit "Do it!" %>
+<% end %> 
+
+<!-- next thing is to add the ability to add multiple pics on the fly! -->
+
+
+<script>
+
+
+	var $more_pics = $("#add-type-pics");
+	var $placeholder = $(".additional-type-pics");
+	var current_pic_num = 1;
+    	
+
+	
+	$(document).ready(function () {
+
+		
+
+    $more_pics.on("click", function (event) {
+    	<% @type.photos.build %>
+
+    	var label = "<label for='type_photos_attributes_" + current_pic_num + "_image'>Upload Image</label>";
+
+			var input = "<input id='type_photos_shares_attributes_" + current_pic_num + "_image' name='type[photos_attributes][" + current_pic_num + "][image]' type='file' />";
+    	event.preventDefault;
+    	$placeholder.append(label);
+    	$placeholder.append(input);
+    	current_pic_num += 1;
+    })
+
+	});
+
+
+</script> 
