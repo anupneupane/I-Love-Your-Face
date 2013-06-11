@@ -1,7 +1,7 @@
-<%= hidden_field_tag "photo[photo_age]", 0 %> 
-<%= hidden_field_tag "photo[is_user]", "false" %> 
-<%= hidden_field_tag "photo[approved]", "true" %> 
-<%= hidden_field_tag "photo[single_person]", "true" %> 
-<%= hidden_field_tag "photo[photo_type]", "face" %> 
-<%= hidden_field_tag "photo[user_id]", current_user.id %> 
+<%= f.hidden_field :photo_age, value: 0 %> 
+<%= f.hidden_field :is_user, value: "false" %> 
+<%= f.hidden_field :approved, value: "true" %> 
+<%= f.hidden_field :single_person, value: "true" %> 
+<%= f.hidden_field :photo_type, value: "face" %> 
+<%= f.hidden_field :user_id, value: current_user.id %> 
 <%= f.file_field :image %>

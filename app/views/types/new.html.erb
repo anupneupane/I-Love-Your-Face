@@ -36,10 +36,29 @@
 
     	var label = "<label for='type_photos_attributes_" + current_pic_num + "_image'>Upload Image</label>";
 
-			var input = "<input id='type_photos_shares_attributes_" + current_pic_num + "_image' name='type[photos_attributes][" + current_pic_num + "][image]' type='file' />";
+			var input1 = "<input id='type_photos_shares_attributes_" + current_pic_num + "_image' name='type[photos_attributes][" + current_pic_num + "][image]' type='file' />";
+
+			var input2 = "<input name='type[photos_attributes][" + current_pic_num + "][is_user]' type='hidden' value='false' />";
+
+			var input3 = "<input name='type[photos_attributes][" + current_pic_num + "][photo_age]' type='hidden' value='0' />";
+
+			var input4 = "<input name='type[photos_attributes][" + current_pic_num + "][single_person]' type='hidden' value='true' />";
+
+			var input5 = "<input name='type[photos_attributes][" + current_pic_num + "][photo_type]' type='hidden' value='face' />";
+
+			var input6 = "<input name='type[photos_attributes][" + current_pic_num + "][approved]' type='hidden' value='true' />";
+
+			var input7 = "<input name='type[photos_attributes][" + current_pic_num + "][user_id]' type='hidden' value='" + <%= current_user.id %> + "' />";
+
     	event.preventDefault;
     	$placeholder.append(label);
-    	$placeholder.append(input);
+    	$placeholder.append(input1);
+    	$placeholder.append(input2);
+    	$placeholder.append(input3);
+    	$placeholder.append(input4);
+    	$placeholder.append(input5);
+    	$placeholder.append(input6);
+    	$placeholder.append(input7);
     	current_pic_num += 1;
     })
 
