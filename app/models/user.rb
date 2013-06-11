@@ -19,6 +19,5 @@ class User < ActiveRecord::Base
 	    where(conditions).first
 	  end
 	end
-
-	
+  
 end
