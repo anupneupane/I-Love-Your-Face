@@ -33,12 +33,49 @@ class User < ActiveRecord::Base
 
   has_many :occurances_as_match, class_name: "TypeMatch", foreign_key: :user_id
 
+  # VISITS
   has_many :visited_profiles, class_name: "Visit", foreign_key: :visitor_id
   has_many :visitings, class_name: "Visit", foreign_key: :visitee_id
 
   has_many :visitors, through: :visitings, source: :visitor 
   has_many :visited_users, through: :visited_profiles, source: :visitee
 
+  # LIKINGS
+  has_many :likes_given, class_name: "Liking", foreign_key: :liking_user_id
+  has_many :likes_received, class_name: "Liking", foreign_key: :liked_user_id
+
+  has_many :users_who_like_me, through: :likes_received, source: :liker
+  has_many :users_ive_liked, through: :likes_given, source: :likee
+
+  # SHUNNING
+  has_many :shuns_given, class_name: "Shunning", foreign_key: :shunning_user_id
+  has_many :shuns_received, class_name: "Shunning", foreign_key: :shunned_user_id
+
+  has_many :users_who_shun_me, through: :shuns_received, source: :shunner
+  has_many :users_ive_shunned, through: :shuns_given, source: :shunnee
+
+  # RATINGS
+  has_many :ratings_given, class_name: "Rating", foreign_key: :rating_giver_id
+  has_many :ratings_received, class_name: "Rating", foreign_key: :rating_receiver_id
+
+  has_many :users_who_rated_me, through: :ratings_received, source: :rater
+  has_many :users_ive_rated, through: :ratings_given, source: :ratee
+
+  def avg_rating
+    total_score = 0 
+    self.ratings_received.each { |rating| total_score += rating.score }
+    avg_rating = total_score / self.ratings_received.size.to_f
+    avg_rating
+  end
+
+  # FEEDBACKS
+  has_many :feedbacks_given, class_name: "Feedback", foreign_key: :feedback_giver_id
+  has_many :feedbacks_received, class_name: "Feedback", foreign_key: :feedback_receiver_id
+
+  has_many :users_who_gave_me_feedback, through: :feedbacks_received, source: :feedback_giver
+  has_many :users_ive_given_feedback, through: :feedbacks_given, source: :feedback_receiver
+
+  # MESSAGES
   has_many :sent_messages, class_name: "Message", foreign_key: :sender_id
   has_many :received_messages, class_name: "Message", foreign_key: :recipient_id
 

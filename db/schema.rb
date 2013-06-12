@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612135140) do
+ActiveRecord::Schema.define(:version => 20130612152754) do
+
+  create_table "feedbacks", :force => true do |t|
+    t.integer  "feedback_giver_id"
+    t.integer  "feedback_receiver_id"
+    t.text     "body"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.boolean  "read"
+  end
+
+  add_index "feedbacks", ["feedback_giver_id"], :name => "index_feedbacks_on_feedback_giver_id"
+  add_index "feedbacks", ["feedback_receiver_id"], :name => "index_feedbacks_on_feedback_receiver_id"
+
+  create_table "likings", :force => true do |t|
+    t.integer  "liking_user_id"
+    t.integer  "liked_user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "likings", ["liked_user_id"], :name => "index_likings_on_liked_user_id"
+  add_index "likings", ["liking_user_id"], :name => "index_likings_on_liking_user_id"
 
   create_table "messages", :force => true do |t|
     t.integer  "recipient_id"
@@ -42,6 +64,27 @@ ActiveRecord::Schema.define(:version => 20130612135140) do
   end
 
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
+
+  create_table "ratings", :force => true do |t|
+    t.integer  "rating_giver_id"
+    t.integer  "rating_receiver_id"
+    t.integer  "score"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "ratings", ["rating_giver_id"], :name => "index_ratings_on_rating_giver_id"
+  add_index "ratings", ["rating_receiver_id"], :name => "index_ratings_on_rating_receiver_id"
+
+  create_table "shunnings", :force => true do |t|
+    t.integer  "shunning_user_id"
+    t.integer  "shunned_user_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "shunnings", ["shunned_user_id"], :name => "index_shunnings_on_shunned_user_id"
+  add_index "shunnings", ["shunning_user_id"], :name => "index_shunnings_on_shunning_user_id"
 
   create_table "type_matches", :force => true do |t|
     t.integer "user_id"

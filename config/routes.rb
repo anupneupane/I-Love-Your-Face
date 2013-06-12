@@ -15,4 +15,12 @@ Facemate::Application.routes.draw do
   resources :messages
 
   resources :visits
+
+  resources :ratings
+
+  resources :feedbacks
+
+  resources :likings
+
+  resources :shunnings
 end
