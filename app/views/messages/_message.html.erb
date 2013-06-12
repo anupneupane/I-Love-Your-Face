@@ -3,7 +3,7 @@
 
 		<header class="group">
 			<div class="message-thumb">
-				<a href="#"><img src="http://2.bp.blogspot.com/-TltX5DwBl7o/UEulpNr4JuI/AAAAAAAAABI/lPg1R1GUbeM/s1600/bunny.jpg" alt=""></a>
+				<a href="#"><img src="<%= message.sender_id == current_user.id ? current_user.profile_pic.image.url : User.find(message.sender_id).profile_pic.image.url %>" alt=""></a>
 			</div>
 			<div class="message-info">
 				<h2><a href="#">

@@ -50,6 +50,8 @@
 
 			var input7 = "<input name='type[photos_attributes][" + current_pic_num + "][user_id]' type='hidden' value='" + <%= current_user.id %> + "' />";
 
+			var input8 = "<input name='type[photos_attributes][" + current_pic_num + "][is_profile_pic]' type='hidden' value='false' />";
+
     	event.preventDefault;
     	$placeholder.append(label);
     	$placeholder.append(input1);
@@ -59,6 +61,7 @@
     	$placeholder.append(input5);
     	$placeholder.append(input6);
     	$placeholder.append(input7);
+    	$placeholder.append(input8);
     	current_pic_num += 1;
     })
 

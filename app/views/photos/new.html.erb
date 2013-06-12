@@ -9,6 +9,11 @@
 	<br>
 	<%= radio_button_tag "photo[single_person]", "false" %>No
 	<br>
+	<%= f.label :is_profile_pic, "Main profile pic?" %>
+	<%= radio_button_tag "photo[is_profile_pic]", "true" %>Yes
+	<br>
+	<%= radio_button_tag "photo[is_profile_pic]", "false", "true" %>No
+	<br>
 	<%= f.label :photo_type, "This pic is mostly of my..." %>
 	<%= radio_button_tag "photo[photo_type]", "face", "true" %>Face (only headshots are used for face matching. Incorrectly labeled photos will be deleted)
 	<br>

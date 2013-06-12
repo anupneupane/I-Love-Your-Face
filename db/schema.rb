@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612034816) do
+ActiveRecord::Schema.define(:version => 20130612050112) do
 
   create_table "messages", :force => true do |t|
     t.integer  "recipient_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130612034816) do
     t.boolean  "is_user"
     t.integer  "photo_age"
     t.string   "photo_type"
+    t.boolean  "is_profile_pic"
   end
 
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"

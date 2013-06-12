@@ -18,8 +18,8 @@ class MessagesController < ApplicationController
 			@conversations.each do |convo|
 				convo.sort_by! {|mess| mess.id }
 			end
-			p @conversations
-			@conversations
+
+			@conversations.reverse!
 		end
 	end
 

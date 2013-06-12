@@ -1,5 +1,6 @@
 class Photo < ActiveRecord::Base
-	attr_accessible :user_id, :location, :photo_type, :photo_age, :approved, :single_person, :is_user, :image
+	attr_accessible :user_id, :photo_type, :photo_age, :approved, 
+									:single_person, :is_user, :is_profile_pic, :image
 
 	has_attached_file :image, styles: { 
 		large: "800x800",

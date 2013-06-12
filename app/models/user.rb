@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
 	  end
 	end
   
+  attr_accessor :profile_pic
+
+  def profile_pic
+    @profile_pic || self.photos.where(is_user: true).first 
+  end
+
   has_many :photos
 
   has_many :types
