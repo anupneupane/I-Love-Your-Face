@@ -36,13 +36,14 @@ class User < ActiveRecord::Base
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_add_[#{self.username}]"
     urls = pic.image.url
-    app_name = "facemate_alpha"
+    app_name = "facemate_alpha2"
 
     Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")
   end
 
   def add_all_pics_to_album
-    self.photos.each { |pic| add_pic_to_album(pic) }
+    photos_of_me = self.photos.select { |photo| photo.is_user == true }
+    photos_of_me.each { |pic| add_pic_to_album(pic) }
   end
 
 
@@ -50,10 +51,11 @@ class User < ActiveRecord::Base
     api_key = "EANeodQhAiTEapGd"
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_train"
-    app_name = "facemate_alpha"
+    app_name = "facemate_alpha2"
 
     Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name}")
   end
+
 
 
 end
