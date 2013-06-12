@@ -1,0 +1,81 @@
+<div class="profile-main-container">
+
+	<div class="profile-body">
+		<div class="inner-profile-body">
+			<% if @conversations %>
+				<% @conversations.each do |convo| %> 
+					<% if convo.last.recipient.id == current_user.id %>
+						<% other_person = convo.last.sender %>
+						<a href="/users/<%= other_person.id %>/messages">
+							<%= "A message from: " + other_person.username %><br>
+						</a>
+							<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
+						<hr>
+					<% else %>
+						<% other_person = convo.last.recipient %>
+						<a href="/users/<%= other_person.id %>/messages">
+							<%= "You sent a message to: " + other_person.username %><br>
+						</a>
+							<%= time_ago_in_words(convo.last.created_at) + " ago" %>
+						<hr>
+					<% end %>
+					
+				<% end %> 
+			<% elsif @conversation %>
+
+				<section class="messages">
+					<article class="message">
+
+						<header class="group">
+							<div class="message-thumb">
+								<img src="http://2.bp.blogspot.com/-TltX5DwBl7o/UEulpNr4JuI/AAAAAAAAABI/lPg1R1GUbeM/s1600/bunny.jpg" alt="">
+							</div>
+						</header>
+
+				      <div class="message-form">
+				      	<h2>Send a message</h2>
+
+				        <%= simple_form_for(Message.new, remote: true, html: {id: "new-message-form"}) do |f| %>
+				        	<%= f.input :body %>
+				        	<%= hidden_field_tag "message[recipient_id]", params[:user_id] %>  
+				        	<%= f.submit "Send Message" %>
+				      	<% end %> 
+				      </div>
+				   
+					</article>
+				</section> 
+
+				
+	      <div class="convo-messages">
+					<% @conversation.each do |mess| %>
+							<%= render partial: "message", locals: {message: mess} %>
+					<% end %> 
+				</div>
+			<% end %> 
+			
+		</div> <!-- end inner-profile-body --> 
+	</div> <!-- end profile-body --> 
+
+</div> <!-- end profile-main-container --> 
+
+
+
+<script> 
+	
+	$(document).ready(function () {
+		
+		$("#new-message-form").on("ajax:success", function (event, data) {
+
+			$(".convo-messages").prepend(data);
+
+			$("#message_body").val("");
+
+		});
+
+		
+
+	});
+
+</script> 
+
+

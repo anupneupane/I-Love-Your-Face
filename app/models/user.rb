@@ -27,7 +27,17 @@ class User < ActiveRecord::Base
 
   has_many :occurances_as_match, class_name: "TypeMatch", foreign_key: :user_id
 
+  has_many :sent_messages, class_name: "Message", foreign_key: :sender_id
+  has_many :received_messages, class_name: "Message", foreign_key: :recipient_id
 
+  has_many :requested_conversation_partners, through: :sent_messages, source: :recipient 
+  has_many :requesting_conversation_partners, through: :received_messages, source: :sender 
+
+  def conversation_partners
+    (self.requested_conversation_partners + self.requesting_conversation_partners).uniq
+  end
+
+  # ***API METHODS***
   def add_pic_to_album(pic)
     #this does the work of calling the API with add method
     #the album is the same for everyone, pretty sure gonna keep it like that
@@ -55,7 +65,7 @@ class User < ActiveRecord::Base
 
     Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name}")
   end
-
+  # ****END API METHODS***
 
 
 end

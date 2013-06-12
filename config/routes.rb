@@ -5,8 +5,11 @@ Facemate::Application.routes.draw do
 
   resources :users, only: [:index, :show] do
   	resources :photos, only: [:index, :show]
+  	resources :messages
   end
 
   resources :types
   resources :photos
+
+  resources :messages
 end
