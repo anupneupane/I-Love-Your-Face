@@ -33,6 +33,12 @@ class User < ActiveRecord::Base
 
   has_many :occurances_as_match, class_name: "TypeMatch", foreign_key: :user_id
 
+  has_many :visited_profiles, class_name: "Visit", foreign_key: :visitor_id
+  has_many :visitings, class_name: "Visit", foreign_key: :visitee_id
+
+  has_many :visitors, through: :visitings, source: :visitor 
+  has_many :visited_users, through: :visited_profiles, source: :visitee
+
   has_many :sent_messages, class_name: "Message", foreign_key: :sender_id
   has_many :received_messages, class_name: "Message", foreign_key: :recipient_id
 

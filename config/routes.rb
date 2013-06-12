@@ -9,7 +9,10 @@ Facemate::Application.routes.draw do
   end
 
   resources :types
+
   resources :photos
 
   resources :messages
+
+  resources :visits
 end

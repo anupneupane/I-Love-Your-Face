@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612050112) do
+ActiveRecord::Schema.define(:version => 20130612135140) do
 
   create_table "messages", :force => true do |t|
     t.integer  "recipient_id"
@@ -90,5 +90,15 @@ ActiveRecord::Schema.define(:version => 20130612050112) do
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "visits", :force => true do |t|
+    t.integer  "visitor_id"
+    t.integer  "visitee_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "visits", ["visitee_id"], :name => "index_visits_on_visitee_id"
+  add_index "visits", ["visitor_id"], :name => "index_visits_on_visitor_id"
 
 end
