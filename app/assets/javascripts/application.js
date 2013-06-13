@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.effect-explode
+//= require jquery.ui.effect-fold
 //= require bootstrap
 //= require_tree .

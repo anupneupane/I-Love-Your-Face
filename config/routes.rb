@@ -7,6 +7,7 @@ Facemate::Application.routes.draw do
   	resources :photos, only: [:index, :show]
   	resources :messages
     resources :likings
+    resources :shunnings
   end
 
   resources :types

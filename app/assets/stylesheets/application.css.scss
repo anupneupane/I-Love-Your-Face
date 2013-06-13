@@ -10,7 +10,9 @@
  *
  *= require_self
  *= require_tree .
+ *= require jquery.ui.all
  */
+
 
 @import "bootstrap";
 
@@ -67,6 +69,19 @@ img {
 }
 
 
+/* INVISIBLE & DESTROY */
+
+
+.invisible {
+	visibility: hidden;
+}
+
+.destroyed {
+	display: none;
+}
+
+
+
 /* HEADER */
 
 .header {
@@ -113,7 +128,7 @@ img {
 
 
 
-/* SIGNIN/SALES PAGE */
+/* LAYOUT PAGE */
 
 .main-container {
 	margin: auto;
@@ -132,3 +147,5 @@ img {
 	width: 800px;
 	float: right;
 }
+
+

@@ -3,15 +3,17 @@
 <div class="photogrid">
 	<h1>Newest Users</h1>
 	<% @newest_users.each do |user| %>
-		<%= user.username %>
-		<% if user.profile_pic %> 
-			<a href="/users/<%= user.id %>"><img src="<%= user.profile_pic.image.url %>"></a>
-		<% else %> 
-			<a href="/users/<%= user.id %>"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut"></a>
-		<% end %> 
-		<div class="total-likes" id="total-likes-<%= user.id %>"></div>
-		<div class="like-action" id="like-action-<%= user.id %>">Like</div>
-		<div class="shun-action" id="shun-action-<%= user.id %>">Shun</div>
+		<div class="user-frame" id="user-frame-<%= user.id %>">
+			<%= user.username %>
+			<% if user.profile_pic %> 
+				<a href="/users/<%= user.id %>"><img src="<%= user.profile_pic.image.url %>" id="user-pic-<%= user.id %>"></a>
+			<% else %> 
+				<a href="/users/<%= user.id %>"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut"></a>
+			<% end %> 
+			<div class="total-likes" id="total-likes-<%= user.id %>"></div>
+			<div class="like-action" id="like-action-<%= user.id %>">Like</div>
+			<div class="shun-action" id="shun-action-<%= user.id %>">Shun</div>
+		</div>
 		<br>
 	<% end %> 
 </div> 
@@ -29,8 +31,6 @@
 		var $remainingLikes = $(".remaining-likes")
 
 		<% @newest_users.each do |user| %>
-
-			
 
 			$.ajax({
 				url: "users/<%= user.id %>/likings",
@@ -78,6 +78,29 @@
 
 			});
 
+
+			var $shunAction = $("#shun-action-<%= user.id %>")
+
+			$shunAction.on("click", function (event) {
+
+				$.ajax({
+					url: "<%= shunnings_path %>",
+					type: "POST",
+					data: {
+							"shunned_user_id" : "<%= user.id %>",
+							"shunning_user_id" : "<%= current_user.id %>"  
+						},
+					success: function(data) {
+						// explode really doesn't seem to look right, but kind of works
+						var $shunnedUser = $("#user-frame-<%= user.id %>") 
+						var $shunnedUserImage = $("#user-pic-<%= user.id %>") 
+						$shunnedUserImage.effect("explode", {pieces: 9}, 1000);
+						$shunnedUser.empty();
+						$shunnedUser.addClass(".destroyed");
+					}
+				});
+
+			});
 
 		<% end %> 
 
