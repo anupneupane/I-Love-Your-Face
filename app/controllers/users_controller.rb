@@ -7,6 +7,10 @@ class UsersController < ApplicationController
 
 	
 	def show
-		@user = current_user 
+		@user = User.find(params[:id])
+	end
+
+	def index
+		@newest_users = User.where('id != ?', current_user.id).order('id DESC')
 	end
 end 

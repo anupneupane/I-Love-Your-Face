@@ -15,3 +15,120 @@
 @import "bootstrap";
 
 
+/* RESET */
+
+html, body, header, footer, section, div, 
+strong, a, img, p, h1, h2, h3, time, ul, li, small {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+
+/* ELEMENTS */
+
+body {
+	font-family: sans-serif;
+	background: #F0C2D2;
+	color: #333;
+	font-size: 16px;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #00f;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+strong {
+	font-weight: bold;
+}
+
+img {
+	display: block;
+}
+
+/* CLEARFIX */
+
+.group:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+
+/* HEADER */
+
+.header {
+	background: #94103D;
+}
+
+.header-wrap {
+	margin: auto;
+}
+
+.header-logo {
+	float: left;
+}
+
+.header-logo > a {
+	display: block;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px 20px;
+	color: #fff;
+}
+
+.header-nav {
+	float: right;
+}
+
+.header-nav > ul {
+}
+
+.header-nav > ul > li {
+	float: left;
+	border-left: 1px solid #f99;
+}
+
+.header-nav > ul > li > a {
+	display: block;
+	padding: 10px 20px;
+	color: #fff
+}
+
+.header-nav > ul > li > a:hover {
+	background: #571C30
+}
+
+
+
+/* SIGNIN/SALES PAGE */
+
+.main-container {
+	margin: auto;
+}
+
+.main-sidebar {
+	float: left;
+	width: 250px;
+	padding-left: 20px;
+	padding-top: 100px;
+	margin-top: 20px;
+	border-right: 1px solid #571C30;
+}
+
+.main-content {
+	width: 800px;
+	float: right;
+}

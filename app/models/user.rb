@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
 
   attr_accessor :login
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :username, :login,
-  								:password, :password_confirmation, :remember_me
+  attr_accessible :email, :username, :login, 
+  								:password, :password_confirmation, :remember_me,
+                  :num_likes, :last_like_refresh
 
 	def self.find_first_by_auth_conditions(warden_conditions)
 	  conditions = warden_conditions.dup
@@ -21,7 +22,7 @@ class User < ActiveRecord::Base
 	  end
 	end
   
-  attr_accessor :profile_pic
+  attr_accessor :profile_pic, :face_matches
 
   def profile_pic
     @profile_pic || self.photos.where(is_user: true).first 
@@ -86,6 +87,11 @@ class User < ActiveRecord::Base
     (self.requested_conversation_partners + self.requesting_conversation_partners).uniq
   end
 
+  def shunned_pairs
+    (self.users_who_shun_me + self.users_ive_shunned).uniq
+  end
+
+
   # ***API METHODS***
   def add_pic_to_album(pic)
     #this does the work of calling the API with add method
@@ -116,5 +122,67 @@ class User < ActiveRecord::Base
   end
   # ****END API METHODS***
 
+  def deselected_users
+    #filters out users that have shunned you or you have shunned
+    #filters out conversation partners
+    #filters you out of the results!
+    results = User.all
+    results.select! { |user| user.id != self.id }
+    results.select! { |user| !self.conversation_partners.include?(user) }
+    results.select! { |user| !self.shunned_pairs.include?(user) }
+    results
+  end
 
+  def average_results(results)
+    users = results.map { |result| result[0] }.uniq
+
+    users_scores = users.map do |user|
+      user_events = results.select {|result| result[0] == user}
+      sum = 0
+      user_events.each { |event| sum += event[1] }
+      avg = sum.to_f / user_events.size
+      [user, avg]
+    end
+
+    users_scores.sort_by { |user_score| user_score[1] }.reverse
+  end
+
+  def find_face_matches_for_all_types
+    matches = [] 
+    self.try(:types).try(:each) {|type| matches += type.try(:find_all_matches) }
+    @face_matches = average_results(matches)
+    @face_matches.select! { |match| match[0] != self.username }
+    @face_matches.map { |match| User.find_by_username(match[0]) }
+  end
+
+  # you can add in similar face matches later!
+
+
+  def best_matches
+    #use this for the front page photo grid
+    #should exclude people you're already talking to
+    #should exclude people you've shunned and who have shunned you
+    #should prioritize face matches
+    #should give second priority to people who have liked you
+    #should give third priority to new members
+    #should fill in the rest with whatever
+    #should return 20 results (users)
+    results = self.deselected_users
+    like_matches = results.select { |result| self.users_who_like_me.include?(result) }
+    face_matches = self.find_face_matches_for_all_types
+    all_matches = (face_matches + like_matches).uniq
+
+    all_matches
+  end
+
+  def remaining_likes
+    if Date.today - self.last_like_refresh > 0
+      self.last_like_refresh = Date.today
+      self.num_likes = 5
+      self.save!
+      self.num_likes
+    else
+      self.num_likes
+    end
+  end
 end

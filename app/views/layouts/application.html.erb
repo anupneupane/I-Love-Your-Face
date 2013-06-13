@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Facemate</title>
+  <title>FaceMate</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= render 'devise/menu/registration_items' %>
-<%= render 'devise/menu/login_items' %>
+
+
+
+
+
+<header class="header">
+	<div class="header-wrap group">
+		<h1 class="header-logo">
+			<a href="<%= root_url %>">FaceMate</a>
+		</h1>
+
+		<nav class="header-nav">
+			<ul class="group"> 
+				<li><%= render 'devise/menu/registration_items' %></li>
+				<li><%= render 'devise/menu/login_items' %></li>
+			</ul>
+		</nav>
+	</div> <!-- header-wrap --> 
+</header> 
+
+
 
 <% if notice %>
 	<p class="notice"><%= notice %></p>
@@ -19,7 +38,20 @@
 	<p class="alert"><%= alert %></p>
 <% end %> 
 
-<%= yield %>
+<div class="main-container group">
+
+	<div class="main-sidebar">
+
+	</div> <!-- main-sidebar -->
+
+
+	<div class="main-content">
+		<%= yield %> 
+	</div> <!-- main-content -->
+
+
+
+</div> <!-- main-container -->
 
 </body>
 </html>

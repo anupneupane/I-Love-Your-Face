@@ -1,1 +1,21 @@
-<h1><%= current_user.username + "'s profile" %></h1>
+<div class="profile-container">
+
+	<section class="top-profile-container">
+		<%= @user.username %> 
+		<% if @user.profile_pic %> 
+			<img src="<%= @user.profile_pic.image.url %>">
+		<% else %> 
+			<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut">
+		<% end %> 
+	</section>
+
+	<nav class="profile-navbar">
+
+	</nev> 
+
+	<section class="bottom-profile-container">
+
+	</section>
+
+</div> <!-- profile-container -->
+

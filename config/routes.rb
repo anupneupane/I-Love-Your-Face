@@ -1,11 +1,12 @@
 Facemate::Application.routes.draw do
-	root to: "users#show" 
+	root to: "users#index" 
 
   devise_for :users 
 
   resources :users, only: [:index, :show] do
   	resources :photos, only: [:index, :show]
   	resources :messages
+    resources :likings
   end
 
   resources :types

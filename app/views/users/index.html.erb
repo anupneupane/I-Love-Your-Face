@@ -1,0 +1,90 @@
+<div class="remaining-likes"><%= render partial: "users/remaining_likes" %></div> 
+
+<div class="photogrid">
+	<h1>Newest Users</h1>
+	<% @newest_users.each do |user| %>
+		<%= user.username %>
+		<% if user.profile_pic %> 
+			<a href="/users/<%= user.id %>"><img src="<%= user.profile_pic.image.url %>"></a>
+		<% else %> 
+			<a href="/users/<%= user.id %>"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut"></a>
+		<% end %> 
+		<div class="total-likes" id="total-likes-<%= user.id %>"></div>
+		<div class="like-action" id="like-action-<%= user.id %>">Like</div>
+		<div class="shun-action" id="shun-action-<%= user.id %>">Shun</div>
+		<br>
+	<% end %> 
+</div> 
+
+
+		<!-- feed goes here -->
+
+
+<script>
+	
+
+	$(document).ready(function () {
+
+
+		var $remainingLikes = $(".remaining-likes")
+
+		<% @newest_users.each do |user| %>
+
+			
+
+			$.ajax({
+				url: "users/<%= user.id %>/likings",
+				type: "GET",
+				data: {
+						"liked_user_id" : "<%= user.id %>",
+					},
+				success: function(data) {
+					var $totalLikes = $("#total-likes-<%= user.id %>")
+					$totalLikes.html(data);
+				}
+			});
+			
+
+			var $likeAction = $("#like-action-<%= user.id %>")
+
+
+			$likeAction.on("click", function (event) {
+
+				$.ajax({
+					url: "<%= likings_path %>",
+					type: "POST",
+					data: {
+							"liked_user_id" : "<%= user.id %>",
+							"liking_user_id" : "<%= current_user.id %>"  
+						},
+					success: function(data) {
+						console.log("success!");
+						$remainingLikes.empty();
+						$remainingLikes.html(data)
+						$.ajax({
+							url: "users/<%= user.id %>/likings",
+							type: "GET",
+							data: {
+									"liked_user_id" : "<%= user.id %>",
+								},
+							success: function(data) {
+								var $totalLikes = $("#total-likes-<%= user.id %>")
+								$totalLikes.empty();
+								$totalLikes.html(data);
+							}
+						});
+					}
+				});
+
+			});
+
+
+		<% end %> 
+
+
+
+
+	});
+
+
+</script> 
