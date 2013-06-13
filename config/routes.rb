@@ -3,7 +3,7 @@ Facemate::Application.routes.draw do
 
   devise_for :users 
 
-  resources :users, only: [:index, :show] do
+  resources :users, only: [:index, :show, :edit, :update] do
   	resources :photos, only: [:index, :show]
   	resources :messages
     resources :likings
@@ -26,4 +26,6 @@ Facemate::Application.routes.draw do
 
   resources :shunnings
 
+
+  match "/users/:id/profile" => "users#profile_edit"
 end

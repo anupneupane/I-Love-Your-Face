@@ -12,4 +12,29 @@ class UsersController < ApplicationController
 	def index
 		@newest_users = User.where('id != ?', current_user.id).order('id DESC')
 	end
+
+	def edit
+		@user = current_user
+	end
+
+	def profile_edit
+		@user = current_user
+	end
+
+	def update
+		@user = current_user
+		
+		if @user.update_attributes(params[:user])
+			puts "YOOOOOOOOOOOOOO"
+			if request.xhr?
+				render partial: "users/profile"
+			else
+				redirect_to user_url(current_user)
+			end
+		else 
+			redirect_to user_url(current_user)
+		end
+	end
+
+	
 end 

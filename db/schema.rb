@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613191743) do
+ActiveRecord::Schema.define(:version => 20130613222842) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "feedback_giver_id"
@@ -129,9 +129,7 @@ ActiveRecord::Schema.define(:version => 20130613191743) do
     t.datetime "updated_at",                                       :null => false
     t.integer  "num_likes",              :default => 5
     t.date     "last_like_refresh",      :default => '2013-06-13'
-    t.integer  "age"
     t.string   "sex"
-    t.integer  "zipcode"
     t.integer  "height"
     t.integer  "weight"
     t.string   "relationship_status"
@@ -141,6 +139,8 @@ ActiveRecord::Schema.define(:version => 20130613191743) do
     t.text     "about_me"
     t.text     "about_my_match"
     t.text     "dealbreakers"
+    t.date     "birthdate"
+    t.string   "zipcode"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
