@@ -5,8 +5,12 @@ class UsersController < ApplicationController
 	after_filter :log_visit
 	skip_after_filter :log_visit, only: [:new, :create, :index, :destroy, :edit, :update]
 
-	
 	def show
+		if current_user.profile.nil? 
+			p = Profile.new(user_id: current_user.id)
+			p.save!
+		end
+
 		@user = User.find(params[:id])
 	end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613142926) do
+ActiveRecord::Schema.define(:version => 20130613183838) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "feedback_giver_id"
@@ -64,6 +64,25 @@ ActiveRecord::Schema.define(:version => 20130613142926) do
   end
 
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
+
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.boolean  "is_male"
+    t.string   "orientation"
+    t.integer  "height"
+    t.integer  "weight"
+    t.integer  "zipcode"
+    t.date     "birthdate"
+    t.integer  "distance_considered"
+    t.text     "about_me"
+    t.string   "body_type"
+    t.text     "seeking"
+    t.string   "ethnicity"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
   create_table "ratings", :force => true do |t|
     t.integer  "rating_giver_id"

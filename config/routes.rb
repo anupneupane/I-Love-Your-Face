@@ -8,6 +8,7 @@ Facemate::Application.routes.draw do
   	resources :messages
     resources :likings
     resources :shunnings
+    resources :profiles
   end
 
   resources :types
@@ -25,4 +26,5 @@ Facemate::Application.routes.draw do
   resources :likings
 
   resources :shunnings
+
 end

@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
     @profile_pic || self.photos.where(is_user: true).first 
   end
 
+  has_one  :profile 
+  
   has_many :photos
 
   has_many :types
