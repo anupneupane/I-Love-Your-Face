@@ -46,5 +46,8 @@ class UsersController < ApplicationController
 		@users = current_user.best_matches
 	end
 
-
+	def browse
+		#take care of likers here!
+		@users = User.where("id != ?", current_user.id)
+	end
 end 

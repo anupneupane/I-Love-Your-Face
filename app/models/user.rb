@@ -97,15 +97,34 @@ class User < ActiveRecord::Base
 
 
   # ***API METHODS***
+  def find_pic_gender(pic)
+    api_key = "EANeodQhAiTEapGd"
+    api_secret = "aMAD2iBa1vtIRoI9"
+    jobs = "face_gender"
+    urls = pic.image.url
+    app_name = "facemate_alpha2"
+
+    response = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")  
+
+    results = response.body["face_detection"][0]["sex"]
+    results < 0.5 ? "female" : "male"
+  end
+
   def add_pic_to_album(pic)
     #this does the work of calling the API with add method
-    #the album is the same for everyone, pretty sure gonna keep it like that
-  
+    #there are albums for men and women. 
+    #if the person hasn't specified their own gender one will be assigned to them. 
+    if self.sex.nil?
+      gender = find_pic_gender(pic)
+      gender == "male" ? self.sex = "Male" : "Female"
+      self.save!
+    end
+
     api_key = "EANeodQhAiTEapGd"
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_add_[#{self.username}]"
     urls = pic.image.url
-    if self.sex.downcase == "male"
+    if self.sex == "Male"
       app_name = "facemate_male"
     else
       app_name = "facemate_female"
@@ -162,6 +181,7 @@ class User < ActiveRecord::Base
     self.try(:types).try(:each) {|type| matches += type.try(:find_all_matches) }
     @face_matches = average_results(matches)
     @face_matches.select! { |match| match[0] != self.username }
+    p @face_matches
     @face_matches.map { |match| User.find_by_username(match[0]) }
   end
 
@@ -179,9 +199,9 @@ class User < ActiveRecord::Base
     #should return 20 results (users)
 
     results = self.deselected_users
-    like_matches = results.select { |result| self.users_who_like_me.include?(result) }
+    # like_matches = results.select { |result| self.users_who_like_me.include?(result) }
     face_matches = self.find_face_matches_for_all_types
-    all_matches = (face_matches + like_matches).uniq
+    # all_matches = (face_matches + like_matches).uniq
 
     # all_matches ## this used to be returned, the algo needs tweaking
     face_matches

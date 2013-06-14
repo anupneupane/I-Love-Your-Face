@@ -27,9 +27,19 @@
 </div> 
 
 <div class="recent-vistors">
+	<% @visits = Visit.where(visitee_id: current_user.id) %>
+	<% @messages = Message.where(recipient_id: current_user.id) %>
+	<% all = @messages + @visits %>
+	<% all.sort_by! { |event| event.created_at }.reverse!.take(10) %>
+
 	<ul>
-	<% Visit.where(visitee_id: current_user.id).order("id DESC").each do |visit| %>
-		<li><%= User.find(visit.visitor_id).username %> visited your profile</li>
+	<% all.each do |event| %>
+		<% if event.class.to_s == "Visit" %>
+			<li><%= User.find(event.visitor_id).username %> visited your profile</li>
+		<% elsif event.class.to_s == "Message" %>
+			<li><%= User.find(event.sender_id).username %> sent you a message</li>
+		<% end %>
+			
 	<% end %> 
 	</ul> 
 </div> 

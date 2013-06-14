@@ -131,12 +131,12 @@ img {
 
 /* LAYOUT PAGE */
 
-.main-container {
+.content {
 	margin: auto;
 	width: 1100px;
 }
 
-.main-sidebar {
+.content-sidebar {
 	float: left;
 	width: 250px;
 	padding-left: 20px;
@@ -145,7 +145,7 @@ img {
 	border-right: 1px solid #571C30;
 }
 
-.main-content {
+.content-main {
 	width: 800px;
 	float: right;
 }

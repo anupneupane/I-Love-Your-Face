@@ -38,20 +38,36 @@
 	<p class="alert"><%= alert %></p>
 <% end %> 
 
-<div class="main-container group">
+<div class="content group">
 
-	<div class="main-sidebar">
+	<div class="content-sidebar">
+		<% if !user_signed_in? %>
+			<%= yield %>
+		<% else %>
+			<div class="main-menu">
+				<ul class="nav nav-tabs nav-stacked">
+					<li><a href="<%= root_url %>">Home</a></li>
+					<li><a href="/messages">Messages</a></li>
+					<li><a href="/face_matches">Matches</a></li>
+					<li><a href="/browse">Search</a></li>
+					<li><a href="<%= user_path(current_user) %>">Profile</a></li>
+					<li><a href="#">Blacklist</a></li>
+				</ul>
+			</div>
+		<% end %> 
+	</div> 
 
-	</div> <!-- main-sidebar -->
+	<div class="content-main">
+		<% if user_signed_in? %>
+			<%= yield %>
+		<% else %>
+
+		<% end %>
+	</div> 
 
 
-	<div class="main-content">
-		<%= yield %> 
-	</div> <!-- main-content -->
 
-
-
-</div> <!-- main-container -->
+</div> 
 
 </body>
 </html>

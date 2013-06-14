@@ -20,7 +20,7 @@ class MessagesController < ApplicationController
 				convo.sort_by! {|mess| mess.id }
 			end
 
-			@conversations
+			@conversations.sort_by! {|convo| convo[-1].id }.reverse!
 		end
 	end
 

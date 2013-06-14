@@ -22,7 +22,7 @@ class Type < ActiveRecord::Base
     response = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")  
 
     results = response.body["face_detection"][0]["sex"]
-    results < .5 ? "female" : "male"
+    results < 0.5 ? "female" : "male"
   end
 
   def find_pic_matches(pic)

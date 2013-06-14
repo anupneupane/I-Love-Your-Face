@@ -29,4 +29,5 @@ Facemate::Application.routes.draw do
 
   match "/users/:id/profile" => "users#profile_edit"
   match "/face_matches" => "users#face_matches"
+  match "/browse" => "users#browse"
 end

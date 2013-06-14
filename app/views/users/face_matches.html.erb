@@ -5,7 +5,9 @@
 	<% else %>
 		<h1>Face Matches</h1>
 	<% end %>
-	<% @users.each do |user| %>
+	<%= "Sorry, no matches yet. We need more members" if @users.size == 1 && @users[0] == nil %>
+	<% @users.compact.each do |user| %>
+		<% p user %>
 		<div class="user-frame" id="user-frame-<%= user.id %>">
 			<%= user.username %> 
 			<a href="/users/<%= user.id %>">
