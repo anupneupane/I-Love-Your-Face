@@ -47,11 +47,15 @@
 			<div class="main-menu">
 				<ul class="nav nav-tabs nav-stacked">
 					<li><a href="<%= root_url %>">Home</a></li>
-					<li><a href="/messages">Messages</a></li>
+					<% if current_user.received_messages.any? {|message| message.read != true } %>
+						<li><a class="unread" href="/messages">Messages</a></li>
+					<% else %>
+						<li><a href="/messages">Messages</a></li>
+					<% end %>
 					<li><a href="/face_matches">Matches</a></li>
 					<li><a href="/browse">Search</a></li>
 					<li><a href="<%= user_path(current_user) %>">Profile</a></li>
-					<li><a href="#">Blacklist</a></li>
+					<li><a href="/blacklist">Blacklist</a></li>
 				</ul>
 			</div>
 		<% end %> 
@@ -61,7 +65,15 @@
 		<% if user_signed_in? %>
 			<%= yield %>
 		<% else %>
-
+			<div class="hero-unit">
+			  <h1>Find true love</h1>
+			  <p>now with unforgiving efficiency</p>
+			  <p>
+			    <a href="<%= new_user_registration_path %>" class="btn btn-primary btn-large">
+			      Sign Up
+			    </a>
+			  </p>
+			</div>
 		<% end %>
 	</div> 
 
@@ -71,3 +83,4 @@
 
 </body>
 </html>
+

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :update_last_seen
 
+
 	# log_visit requires "id" in the params to correspond to a user's id
 	after_filter :log_visit
 	skip_after_filter :log_visit, only: [:new, :create, :index, :destroy, :edit, :update]
@@ -48,6 +49,16 @@ class UsersController < ApplicationController
 
 	def browse
 		#take care of likers here!
-		@users = User.where("id != ?", current_user.id)
+		@users = current_user.deselected_users
+		@users.sort_by! do |user| 
+			Liking.where(liking_user_id: user.id, liked_user_id: current_user.id).size
+		end 
+		@users.reverse!
 	end
+
+	def blacklist
+		@users = current_user.users_ive_shunned
+	end
+
+
 end 

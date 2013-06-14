@@ -14,7 +14,14 @@ class ShunningsController < ApplicationController
 	end
 
 	def destroy
+		@shunning = Shunning.where(shunned_user_id: params[:shunned_user_id], shunning_user_id: params[:shunning_user_id])[0]
+		@shunning.destroy
 
+		if request.xhr?
+			render nothing: true
+		else 
+			redirect_to "/blacklist"
+		end
 	end
 
 end

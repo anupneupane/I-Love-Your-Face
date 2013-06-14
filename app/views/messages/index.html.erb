@@ -10,7 +10,8 @@
 							<%= "A message from: " + other_person.username %><br>
 						</a>
 							<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
-						<hr>
+							<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
+ 						<hr>
 					<% else %>
 						<% other_person = convo.last.recipient %>
 						<a href="/users/<%= other_person.id %>/messages">

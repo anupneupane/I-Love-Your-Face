@@ -1,0 +1,54 @@
+<div class="photogrid">
+	<% if @users.empty? %>
+		<h1>No one here, you're so nice!</h1>
+	<% else %>
+		<h1>Shunned Users</h1>
+	<% end %>
+	<% @users.each do |user| %>
+		<%= render partial: "shunned_view", locals: {user: user} %>
+		<br>
+	<% end %> 
+</div> 
+
+
+<script>
+	
+
+	$(document).ready(function () {
+
+
+
+		<% @users.each do |user| %>
+
+			var $UnShunAction = $("#unshun-action-<%= user.id %>")
+
+			$UnShunAction.on("click", function (event) {
+
+				$.ajax({
+					url: "<%= shunning_path(user) %>",
+					type: "DELETE",
+					data: {
+							"shunned_user_id" : "<%= user.id %>",
+							"shunning_user_id" : "<%= current_user.id %>"  
+						},
+					success: function(data) {
+						// explode really doesn't seem to look right, but kind of works
+						var $shunnedUser = $("#user-frame-<%= user.id %>") 
+						var $shunnedUserImage = $("#user-pic-<%= user.id %>") 
+						$shunnedUserImage.effect("explode", {pieces: 9}, 1000);
+						$shunnedUser.empty();
+						$shunnedUser.addClass(".destroyed");
+					}
+				});
+
+			});
+
+		<% end %> 
+
+
+
+
+	});
+
+
+</script> 

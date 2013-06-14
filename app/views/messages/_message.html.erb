@@ -3,12 +3,13 @@
 
 		<header class="group">
 			<div class="message-thumb">
-				<a href="#"><img src="<%= message.sender_id == current_user.id ? current_user.profile_pic.image.url : User.find(message.sender_id).profile_pic.image.url %>" alt=""></a>
+				<a href="#"><img src="<%= message.sender_id == current_user.id ? current_user.profile_pic.image.url : User.find(message.sender_id).profile_pic.image.url %>" alt="" width="75" height="75"></a>
 			</div>
 			<div class="message-info">
 				<h2><a href="#">
 					<%= message.sender_id == current_user.id ? "You" : User.find(message.sender_id).username %>
 					</a></h2>
+				<time><%= time_ago_in_words(message.created_at) + " ago" %></time>
 			</div>
 		</header>
 

@@ -17,16 +17,20 @@
 
 		<% if @user.profile_pic %> 
 			<%= render partial: "users/small_user", locals: {user: @user} %>
+			<a href="<%= @user.id %>/photos">(view photos)</a>
 		<% else %> 
 			<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut">
 		<% end %> 
 		<%= render partial: "users/small_stats", locals: {user: @user} %>
 		<%= render partial: "users/vital_stats" %>
+		<% if @user.id == current_user.id %>
+			<a href="<%= edit_user_path(@user) %>">Edit Details</a>
+		<% end %>
 	</section>
 
 	<nav class="profile-navbar">
 
-	</nev> 
+	</nav> 
 
 	<section class="bottom-profile-container">
 		<% if current_user.id != @user.id %> 

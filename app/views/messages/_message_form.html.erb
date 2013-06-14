@@ -1,6 +1,7 @@
 <%= simple_form_for(Message.new, remote: true, html: {id: "new-message-form"}) do |f| %>
-	<%= f.input :body %>
-	<%= hidden_field_tag "message[recipient_id]", user_id %>  
+	<%= f.text_area :body, :cols => "10", :rows => "10" %>
+	<%= hidden_field_tag "message[recipient_id]", user_id %> 
+	<br> 
 	<%= f.submit "Send Message" %>
 <% end %> 
 
