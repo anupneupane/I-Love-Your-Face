@@ -90,6 +90,7 @@ img {
 
 .header-wrap {
 	margin: auto;
+	min-width: 700px;
 }
 
 .header-logo {
@@ -132,6 +133,7 @@ img {
 
 .main-container {
 	margin: auto;
+	width: 1100px;
 }
 
 .main-sidebar {
@@ -201,4 +203,26 @@ img {
 #carrousel-nav-next:hover {
 	background: blue;
 	opacity: .20;
+}
+
+
+/* SIGNED IN */
+
+.online-now {
+	background: white;
+	opacity: .75;
+	color: grey;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0px;
+	font-size: 18px;
+}
+
+/* USER INDEX */
+
+.user-frame > a {
+	display: block;
+	position: relative;
+	width: 225px;
 }

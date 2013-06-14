@@ -1,12 +1,27 @@
 <div class="profile-container">
 
 	<section class="top-profile-container">
-		<%= @user.username %> 
+		<div class="interaction-nav">
+			<% if current_user.id != @user.id %> 
+				<div class="remaining-likes"><%= render partial: "users/remaining_likes" %></div> 
+				<div class="total-likes" id="total-likes-<%= @user.id %>"></div>
+				<div class="like-action btn btn-info" id="like-action-<%= @user.id %>">Like</div>
+				<div class="shun-action btn btn-danger" id="shun-action-<%= @user.id %>">Shun</div>
+				<a href="/users/<%= @user.id %>/messages">
+					<div class="send-message-btn btn">
+					 Send <%= @user.username %> a message
+					</div>
+				</a>
+			<% end %> 
+		</div>
+
 		<% if @user.profile_pic %> 
-			<img src="<%= @user.profile_pic.image.url %>">
+			<%= render partial: "users/small_user", locals: {user: @user} %>
 		<% else %> 
 			<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut">
 		<% end %> 
+		<%= render partial: "users/small_stats", locals: {user: @user} %>
+		<%= render partial: "users/vital_stats" %>
 	</section>
 
 	<nav class="profile-navbar">
@@ -14,9 +29,101 @@
 	</nev> 
 
 	<section class="bottom-profile-container">
-
+		<div class="personal-essays-container">
+			<div id="about-me">
+				<%= @user.about_me %>
+			</div>
+			<div id="about-my-match">
+				<%= @user.about_my_match %>
+			</div>
+			<div id="dealbreakers">
+				<%= @user.dealbreakers %>
+			</div>
+		</div> 
 	</section>
 
 </div> <!-- profile-container -->
 
-<%= render partial: "users/small_user", locals: {user: @user} %>
+
+
+
+<script>
+
+	$(document).ready(function () {
+
+	var $remainingLikes = $(".remaining-likes")
+
+			$.ajax({
+				url: "<%= @user.id %>/likings",
+				type: "GET",
+				data: {
+						"liked_user_id" : "<%= @user.id %>",
+					},
+				success: function(data) {
+					var $totalLikes = $("#total-likes-<%= @user.id %>")
+					$totalLikes.html(data);
+				}
+			});
+			
+
+		var $likeAction = $("#like-action-<%= @user.id %>")
+
+		$likeAction.on("click", function (event) {
+
+			$.ajax({
+				url: "<%= likings_path %>",
+				type: "POST",
+				data: {
+						"liked_user_id" : "<%= @user.id %>",
+						"liking_user_id" : "<%= current_user.id %>"  
+					},
+				success: function(data) {
+					console.log("success!");
+					$remainingLikes.empty();
+					$remainingLikes.html(data)
+					$.ajax({
+						url: "<%= @user.id %>/likings",
+						type: "GET",
+						data: {
+								"liked_user_id" : "<%= @user.id %>",
+							},
+						success: function(data) {
+							var $totalLikes = $("#total-likes-<%= @user.id %>")
+							$totalLikes.empty();
+							$totalLikes.html(data);
+						}
+					});
+				}
+			});
+
+		});
+
+
+		var $shunAction = $("#shun-action-<%= @user.id %>")
+		var $interactionNav = $(".interaction-nav")
+
+		$shunAction.on("click", function (event) {
+
+			$.ajax({
+				url: "<%= shunnings_path %>",
+				type: "POST",
+				data: {
+						"shunned_user_id" : "<%= @user.id %>",
+						"shunning_user_id" : "<%= current_user.id %>"  
+					},
+				success: function(data) {
+					// explode really doesn't seem to look right, but kind of works
+					var $shunnedUser = $("#user-frame-<%= @user.id %>") 
+					var $shunnedUserImage = $("#user-pic-<%= @user.id %>")
+					$likeAction.off();
+					$shunAction.off();
+					$interactionNav.empty();
+				}
+			});
+
+		});
+
+	});
+
+
+</script>

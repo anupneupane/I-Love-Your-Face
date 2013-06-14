@@ -17,5 +17,11 @@ module ApplicationHelper
 		#return nil, purely a side effect method
 		nil
 	end
+
+	def update_last_seen
+		current_user.last_seen = DateTime.now
+		current_user.save!
+	end
 end
+
 

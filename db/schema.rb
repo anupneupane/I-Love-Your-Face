@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613222842) do
+ActiveRecord::Schema.define(:version => 20130614025247) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "feedback_giver_id"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20130613222842) do
     t.text     "dealbreakers"
     t.date     "birthdate"
     t.string   "zipcode"
+    t.datetime "last_seen"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

@@ -6,19 +6,29 @@
 		<div class="user-frame" id="user-frame-<%= user.id %>">
 			<%= user.username %>
 			<% if user.profile_pic %> 
-				<a href="/users/<%= user.id %>"><img src="<%= user.profile_pic.image.url %>" id="user-pic-<%= user.id %>"></a>
+				<a href="/users/<%= user.id %>">
+					<img src="<%= user.profile_pic.image.url %>" id="user-pic-<%= user.id %>" width="225px">
+					<%= render partial: "users/online_now", locals: {user: user} %>
+				</a>
 			<% else %> 
 				<a href="/users/<%= user.id %>"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut"></a>
 			<% end %> 
+			<%= render partial: "users/small_stats", locals: {user: user} %>
 			<div class="total-likes" id="total-likes-<%= user.id %>"></div>
-			<div class="like-action" id="like-action-<%= user.id %>">Like</div>
-			<div class="shun-action" id="shun-action-<%= user.id %>">Shun</div>
+			<div class="like-action btn btn-info" id="like-action-<%= user.id %>">Like</div>
+			<div class="shun-action btn btn-danger" id="shun-action-<%= user.id %>">Shun</div>
 		</div>
 		<br>
 	<% end %> 
 </div> 
 
-
+<div class="recent-vistors">
+	<ul>
+	<% Visit.where(visitee_id: current_user.id).order("id DESC").each do |visit| %>
+		<li><%= User.find(visit.visitor_id).username %> visited your profile</li>
+	<% end %> 
+	</ul> 
+</div> 
 		<!-- feed goes here -->
 
 

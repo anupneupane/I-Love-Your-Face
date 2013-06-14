@@ -1,5 +1,6 @@
 class UsersController < ApplicationController 
 	before_filter :authenticate_user!
+	before_filter :update_last_seen
 
 	# log_visit requires "id" in the params to correspond to a user's id
 	after_filter :log_visit

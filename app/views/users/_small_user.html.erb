@@ -12,19 +12,17 @@
 		    	
 		    	<% user.photos.where(is_user: true).each do |photo| %>
 		    		<li>	
-		    			<img src="<%= photo.image.url(:small) %>">
+		    			<img src="<%= photo.image.url(:small) %>" width="250px" height="250px">
 			    	</li>
 			    <% end %>
 			   </ul>
+        <%= render partial: "users/online_now", locals: {user: user} %>
 			  <div class="carrousel-nav" id="carrousel-nav-next"></div> 
 		  	</div>
 		  </div>	
 	<% else %> 
 		<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut">
 	<% end %> 
-	<div class="total-likes" id="total-likes-<%= user.id %>"></div>
-	<div class="like-action" id="like-action-<%= user.id %>">Like</div>
-	<div class="shun-action" id="shun-action-<%= user.id %>">Shun</div>
 </div>
 
 	
@@ -81,7 +79,9 @@ var Carrousel = (function(){
 
 
 $(document).ready(function(){
-  Carrousel.init();  
+  Carrousel.init();
 });
 
 </script>
+
+

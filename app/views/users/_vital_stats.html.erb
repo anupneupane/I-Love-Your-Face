@@ -1,0 +1,13 @@
+<!-- requires a local for the user -->
+
+<div class="vital-stats">
+	<ul>
+		<li>Hometown: <%= @user.zipcode || " -- " %></li>
+		<li>Height: <%= @user.height || " -- " %></li>
+		<li>Weight: <%= @user.weight || " -- " %></li>
+		<li>Body Type: <%= @user.body_type || " -- " %></li>
+		<li>Ethnicity: <%= @user.ethnicity || " -- " %></li>
+		<li>Orientation: <%= @user.orientation || " -- " %></li>
+		<li>Relationship Status: <%= @user.relationship_status || " -- " %></li>
+	</ul>
+</div> 

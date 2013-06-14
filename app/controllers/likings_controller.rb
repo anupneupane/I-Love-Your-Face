@@ -1,5 +1,6 @@
 class LikingsController < ApplicationController
 	before_filter :authenticate_user!
+	before_filter :update_last_seen
 
 	def create
 		user = User.find(params[:liking_user_id])

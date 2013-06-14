@@ -1,0 +1,15 @@
+<!-- requires a local for the user -->
+
+
+
+<div class="small-stats-container">
+	<ul>
+		<li>
+			<% if user.birthdate %>
+				<% age = distance_of_time_in_words_to_now(user.birthdate) %>
+				<% age = age[6..-7] %>
+				<%= age + ", " + user.try(:sex) %> 
+			<% end %>
+		</li>
+	</ul>
+</div>

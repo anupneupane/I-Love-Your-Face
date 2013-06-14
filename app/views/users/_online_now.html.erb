@@ -1,0 +1,7 @@
+<!-- requires a local for the user -->
+
+<div class="online-now">
+	<% if user.last_seen %>
+		<%= "Online Now" if Time.now - user.last_seen < 300 %>
+	<% end %> 
+</div>

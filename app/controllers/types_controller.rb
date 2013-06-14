@@ -1,5 +1,6 @@
 class TypesController < ApplicationController 
 	before_filter :authenticate_user!
+	before_filter :update_last_seen
 
 	def new
 		@type = Type.new
