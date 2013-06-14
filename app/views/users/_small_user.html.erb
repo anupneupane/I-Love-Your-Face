@@ -1,0 +1,87 @@
+<!-- requires a local for the user -->
+
+
+
+
+<div class="user-frame" id="user-frame-<%= user.id %>">
+	<a href="/users/<%= user.id %>"><%= user.username %></a>
+	<% if user.profile_pic %>
+		<div class="carrousel-holder">
+			<div id="carrousel">
+		    <ul>
+		    	
+		    	<% user.photos.where(is_user: true).each do |photo| %>
+		    		<li>	
+		    			<img src="<%= photo.image.url(:small) %>">
+			    	</li>
+			    <% end %>
+			   </ul>
+			  <div class="carrousel-nav" id="carrousel-nav-next"></div> 
+		  	</div>
+		  </div>	
+	<% else %> 
+		<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut">
+	<% end %> 
+	<div class="total-likes" id="total-likes-<%= user.id %>"></div>
+	<div class="like-action" id="like-action-<%= user.id %>">Like</div>
+	<div class="shun-action" id="shun-action-<%= user.id %>">Shun</div>
+</div>
+
+	
+
+
+
+  
+
+
+  
+
+<script>
+
+var Carrousel = (function(){
+  
+  var carrousel = $("#carrousel");
+  var itemsHolder = carrousel.find("> ul");
+  var items = itemsHolder.find("> li");
+  var itemWidth = items.first().width();
+  var currentItem = -1;
+  
+  var nextButton = $("#carrousel-nav-next");
+  
+  var init = function(){
+    itemsHolder.css({"width": (items.length * itemWidth) + "px"});
+    bind();
+  };
+  
+  var bind = function(){
+    nextButton.on("click", next);
+  }
+
+  var next = function(){
+    currentItem++;
+    
+    if(currentItem == items.length){
+      currentItem = 0;
+    }
+    
+    move();
+  };
+  
+
+  var move = function(){    
+    leftPosition = currentItem * itemWidth * -1;
+    itemsHolder.animate({"left": leftPosition + "px"}, 0);
+  }
+  
+  return {
+    init: init,
+    next: next
+  }
+})();
+
+
+$(document).ready(function(){
+  Carrousel.init();  
+});
+
+</script>

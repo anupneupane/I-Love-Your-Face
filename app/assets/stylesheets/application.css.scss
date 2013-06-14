@@ -34,7 +34,7 @@ strong, a, img, p, h1, h2, h3, time, ul, li, small {
 
 body {
 	font-family: sans-serif;
-	background: #F0C2D2;
+	background: #E4E8F0;
 	color: #333;
 	font-size: 16px;
 }
@@ -85,7 +85,7 @@ img {
 /* HEADER */
 
 .header {
-	background: #94103D;
+	background: #0D244A;
 }
 
 .header-wrap {
@@ -149,3 +149,56 @@ img {
 }
 
 
+/* CARROUSEL */
+.carrousel-holder {
+	position: relative;
+}
+
+#carrousel {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  margin: 100px auto 20px auto;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+#carrousel > ul {
+  left: 0px;
+  top: 0;
+  position: absolute;
+  list-style: none;
+}
+
+#carrousel > ul:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#carrousel > ul > li {
+  float: left;
+  width: 250px;
+  height: 250px;
+}
+
+
+
+#carrousel-nav-next {
+ 	position: absolute;
+ 	left: 230px;
+ 	top: 0px;
+ 	background: white;
+ 	opacity: .40;
+ 	width: 20px;
+ 	height: 250px;
+}
+
+#carrousel-nav-next > {
+  cursor: pointer;
+}
+
+#carrousel-nav-next:hover {
+	background: blue;
+	opacity: .20;
+}

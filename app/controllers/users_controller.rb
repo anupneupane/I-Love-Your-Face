@@ -25,7 +25,6 @@ class UsersController < ApplicationController
 		@user = current_user
 		
 		if @user.update_attributes(params[:user])
-			puts "YOOOOOOOOOOOOOO"
 			if request.xhr?
 				render partial: "users/profile"
 			else
