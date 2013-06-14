@@ -146,8 +146,10 @@ class User < ActiveRecord::Base
     app_name1 = "facemate_male"
     app_name2 = "facemate_female"
 
-    Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name1}")
-    Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name2}")
+    p1 = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name1}")
+    p2 = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name2}")
+    p p1
+    p p2
   end
   # ****END API METHODS***
 
