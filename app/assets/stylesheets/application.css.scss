@@ -239,3 +239,38 @@ img {
 .hero-unit {
 	margin-top: 200px;
 }
+
+
+/* PROFILE */
+
+.profile-body {
+	margin-top: 100px;
+	width: 800px;
+}
+
+/* MESSAGES */
+
+.messages {
+
+}
+
+
+.messages > .message {
+
+}
+
+
+.messages > .message > header {
+
+}
+
+
+.messages > .message > header > .message-thumb{
+	float: left;
+	padding: 10px;
+}
+
+.messages > .message > header > .message-form {
+	float: right;
+	padding: 10px;
+}

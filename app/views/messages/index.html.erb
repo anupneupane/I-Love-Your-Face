@@ -1,7 +1,7 @@
 <div class="profile-main-container">
 
 	<div class="profile-body">
-		<div class="inner-profile-body">
+		<div class="inner-profile-body group">
 			<% if @conversations %>
 				<% @conversations.each do |convo| %> 
 					<% if convo.last.recipient.id == current_user.id %>
@@ -29,7 +29,7 @@
 
 						<header class="group">
 							<div class="message-thumb">
-								<img src="<%= current_user.profile_pic.image.url %>" alt="">
+								<img src="<%= current_user.profile_pic.image.url %>" alt="" width="250px" height="250px">
 							</div>
 						</header>
 

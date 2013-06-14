@@ -20,6 +20,9 @@
 			<a href="<%= @user.id %>/photos">(view photos)</a>
 		<% else %> 
 			<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut">
+		<% end %>
+		<% if @user.id == current_user.id %>
+			<a href="<%= new_photo_path %>">(add more photos)</a>
 		<% end %> 
 		<%= render partial: "users/small_stats", locals: {user: @user} %>
 		<%= render partial: "users/vital_stats" %>
@@ -43,15 +46,21 @@
 
 		<div class="personal-essays-container">
 			<div id="about-me">
+				<h1>How I Ended Up Here</h1>
 				<%= @user.about_me %>
 			</div>
 			<div id="about-my-match">
+				<h1>What I'll Settle For</h1>
 				<%= @user.about_my_match %>
 			</div>
 			<div id="dealbreakers">
+				<h1>But No Way Will I Accept</h1>
 				<%= @user.dealbreakers %>
 			</div>
 		</div> 
+		<% if @user.id == current_user.id %>
+			<a href="<%= current_user.id %>/profile">Edit Essays</a>
+		<% end %>
 	</section>
 
 </div> <!-- profile-container -->
