@@ -29,6 +29,14 @@
 	</nev> 
 
 	<section class="bottom-profile-container">
+		<% if current_user.id != @user.id %> 
+			<div class="profile-message-form">
+				<%= render partial: "messages/message_form", locals: {user_id: params[:id], on_profile: true} %>
+			</div> 
+
+		<% end %>
+
+
 		<div class="personal-essays-container">
 			<div id="about-me">
 				<%= @user.about_me %>

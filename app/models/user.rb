@@ -105,7 +105,11 @@ class User < ActiveRecord::Base
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_add_[#{self.username}]"
     urls = pic.image.url
-    app_name = "facemate_alpha2"
+    if self.sex.downcase == "male"
+      app_name = "facemate_male"
+    else
+      app_name = "facemate_female"
+    end
 
     Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")
   end
@@ -120,9 +124,11 @@ class User < ActiveRecord::Base
     api_key = "EANeodQhAiTEapGd"
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_train"
-    app_name = "facemate_alpha2"
+    app_name1 = "facemate_male"
+    app_name2 = "facemate_female"
 
-    Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name}")
+    Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name1}")
+    Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name2}")
   end
   # ****END API METHODS***
 
@@ -132,7 +138,7 @@ class User < ActiveRecord::Base
     #filters you out of the results!
     results = User.all
     results.select! { |user| user.id != self.id }
-    results.select! { |user| !self.conversation_partners.include?(user) }
+    # results.select! { |user| !self.conversation_partners.include?(user) }
     results.select! { |user| !self.shunned_pairs.include?(user) }
     results
   end
@@ -171,12 +177,14 @@ class User < ActiveRecord::Base
     #should give third priority to new members
     #should fill in the rest with whatever
     #should return 20 results (users)
+
     results = self.deselected_users
     like_matches = results.select { |result| self.users_who_like_me.include?(result) }
     face_matches = self.find_face_matches_for_all_types
     all_matches = (face_matches + like_matches).uniq
 
-    all_matches
+    # all_matches ## this used to be returned, the algo needs tweaking
+    face_matches
   end
 
   def remaining_likes

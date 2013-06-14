@@ -1,0 +1,19 @@
+<div class="photogrid">
+	<% if @users.empty? %>
+		<h1>Hmmmm... no matches yet. Did you let us know what you like?</h1>
+		<a href="types/new" class="btn">Let us know!</a>
+	<% else %>
+		<h1>Face Matches</h1>
+	<% end %>
+	<% @users.each do |user| %>
+		<div class="user-frame" id="user-frame-<%= user.id %>">
+			<%= user.username %> 
+			<a href="/users/<%= user.id %>">
+				<img src="<%= user.profile_pic.image.url %>" id="user-pic-<%= user.id %>" width="225px">
+				<%= render partial: "users/online_now", locals: {user: user} %>
+			</a>
+			<%= render partial: "users/small_stats", locals: {user: user} %>
+		</div>
+		<br>
+	<% end %> 
+</div> 

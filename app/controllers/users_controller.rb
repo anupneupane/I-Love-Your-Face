@@ -8,10 +8,16 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+
+		if current_user.users_who_shun_me.include?(@user)
+			flash[:notice] = "You have been shunned!"
+			redirect_to root_url
+		end
 	end
 
 	def index
-		@newest_users = User.where('id != ?', current_user.id).order('id DESC')
+		# @newest_users = User.where('id != ?', current_user.id).order('id DESC')
+		@newest_users = current_user.deselected_users.sort_by! {|user| user.id }.reverse
 	end
 
 	def edit
@@ -36,5 +42,9 @@ class UsersController < ApplicationController
 		end
 	end
 
-	
+	def face_matches
+		@users = current_user.best_matches
+	end
+
+
 end 

@@ -12,13 +12,27 @@ class Type < ActiveRecord::Base
 	accepts_nested_attributes_for :photos 
 	# , reject_if: lambda { |attributes| attributes["image"].blank? }
 
+  def find_pic_gender(pic)
+    api_key = "EANeodQhAiTEapGd"
+    api_secret = "aMAD2iBa1vtIRoI9"
+    jobs = "face_gender"
+    urls = pic.image.url
+    app_name = "facemate_alpha2"
+
+    response = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")  
+
+    results = response.body["face_detection"][0]["sex"]
+    results < .5 ? "female" : "male"
+  end
 
   def find_pic_matches(pic)
     api_key = "EANeodQhAiTEapGd"
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_recognize"
     urls = pic.image.url
-    app_name = "facemate_alpha2"
+
+    gender = find_pic_gender(pic)
+    app_name = "facemate_" + gender
 
     response = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")  
 

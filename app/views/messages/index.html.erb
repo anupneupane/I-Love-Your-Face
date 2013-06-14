@@ -35,11 +35,7 @@
 				      <div class="message-form">
 				      	<h2>Send a message</h2>
 
-				        <%= simple_form_for(Message.new, remote: true, html: {id: "new-message-form"}) do |f| %>
-				        	<%= f.input :body %>
-				        	<%= hidden_field_tag "message[recipient_id]", params[:user_id] %>  
-				        	<%= f.submit "Send Message" %>
-				      	<% end %> 
+				        <%= render partial: "message_form", locals: {user_id: params[:user_id]} %> 
 				      </div>
 				   
 					</article>
@@ -60,20 +56,5 @@
 
 
 
-<script> 
-	
-	$(document).ready(function () {
-		
-		$("#new-message-form").on("ajax:success", function (event, data) {
-
-			$(".convo-messages").prepend(data);
-
-			$("#message_body").val("");
-
-		});
-
-	});
-
-</script> 
 
 

@@ -1,7 +1,11 @@
 <div class="remaining-likes"><%= render partial: "users/remaining_likes" %></div> 
 
 <div class="photogrid">
-	<h1>Newest Users</h1>
+	<% if @newest_users.empty? %>
+		<h1>Hmmmm... nothing here</h1>
+	<% else %>
+		<h1>Fresh Meat</h1>
+	<% end %>
 	<% @newest_users.each do |user| %>
 		<div class="user-frame" id="user-frame-<%= user.id %>">
 			<%= user.username %>

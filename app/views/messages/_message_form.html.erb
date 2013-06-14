@@ -1,0 +1,29 @@
+<%= simple_form_for(Message.new, remote: true, html: {id: "new-message-form"}) do |f| %>
+	<%= f.input :body %>
+	<%= hidden_field_tag "message[recipient_id]", user_id %>  
+	<%= f.submit "Send Message" %>
+<% end %> 
+
+
+<script> 
+	
+	$(document).ready(function () {
+		
+		$("#new-message-form").on("ajax:success", function (event, data) {
+			var convoMessages = $(".convo-messages")
+
+			if (<%= on_profile %>) {
+				alert("Your message was sent!")
+			} 
+			else {
+				$(".convo-messages").prepend(data);
+			}
+			
+
+			$("#message_body").val("");
+
+		});
+
+	});
+
+</script> 
