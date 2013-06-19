@@ -3,8 +3,8 @@ class Photo < ActiveRecord::Base
 									:single_person, :is_user, :is_profile_pic, :image
 
 	has_attached_file :image, styles: { 
-		large: "800x800",
-		small: "300x300",
+		large: "700x700>",
+		small: "225x225#",
 		thumb: "100x100#"
 	}
 

@@ -42,9 +42,11 @@
 
 	<div class="content-sidebar">
 		<% if !user_signed_in? %>
-			<%= yield %>
+			<div class="signin-bar">
+				<%= yield %>
+			</div>
 		<% else %>
-			<div class="main-menu">
+			<div class="main-menu group">
 				<ul class="nav nav-tabs nav-stacked">
 					<li><a href="<%= root_url %>">Home</a></li>
 					<% if current_user.received_messages.any? {|message| message.read != true } %>

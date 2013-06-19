@@ -114,7 +114,7 @@ img {
 
 .header-nav > ul > li {
 	float: left;
-	border-left: 1px solid #f99;
+	border-left: 1px solid #4C4659;
 }
 
 .header-nav > ul > li > a {
@@ -133,23 +133,52 @@ img {
 
 .content {
 	margin: auto;
-	width: 1100px;
+	width: 1200px;
+	height: 1000px;
+	margin-top: 20px
 }
 
 .content-sidebar {
 	float: left;
 	width: 250px;
+	height: 800px;
 	padding-left: 20px;
-	padding-top: 100px;
+	padding-right: 10px;
+	padding-top: 50px;
 	margin-top: 20px;
-	border-right: 1px solid #571C30;
+	border-right: 1px solid #4C4659;
+}
+
+.signin-bar {
+	margin-top: 100px;
 }
 
 .content-main {
+	padding-top: 100px;
+	margin-top: 20px;
 	width: 800px;
 	float: right;
 }
 
+.hero-unit {
+	margin-top: 200px;
+	margin-right: 150px;
+}
+
+.main-menu {
+	margin: auto;
+	margin-top: 100px;
+	padding-right: 10px;
+}
+
+.main-menu > .nav {
+	background-color: #D2D2D4;
+}
+
+.main-menu > .nav > li > a {
+	font-size: 20px;
+	color: white;
+}
 
 /* CARROUSEL */
 .carrousel-holder {
@@ -234,11 +263,6 @@ img {
 	color: white;
 }
 
-/* MAIN */
-
-.hero-unit {
-	margin-top: 200px;
-}
 
 
 /* PROFILE */
