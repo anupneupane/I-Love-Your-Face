@@ -17,20 +17,25 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		if params[:page] 
-			start = 0 + (params[:page].to_i * 5)
-			stop = 5 + (params[:page].to_i * 5)
+		if params[:page] && params[:page].to_i > 1
+			start = 0 + ((params[:page].to_i - 1) * 5)
+			stop = 5 + ((params[:page].to_i - 1) * 5)
 		else
 			start = 0
 			stop = 5
+			first_page = true 
 		end 
 
-		@users = current_user.deselected_users.sort_by! {|user| user.id }.reverse[start..stop]
+		@users = current_user.deselected_users.sort_by! {|user| user.id }.reverse
+
+		total_pages = (@users.size / 6.0).ceil
+
+		@users = @users[start..stop]
 
 		if request.xhr?
-			render partial: "users/photo_grid"
+			render partial: "users/photo_grid", locals: {first_page: first_page, total_pages: total_pages}
 		else
-			render :index
+			render :index, locals: {first_page: first_page, total_pages: total_pages}
 		end
 	end
 
