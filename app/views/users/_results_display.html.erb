@@ -1,17 +1,24 @@
 
+<div class="photo-frame">
 
-<div class="user-frame" id="user-frame-<%= user.id %>">
-	<%= user.username %>
-	<% if user.profile_pic %> 
-		<a href="/users/<%= user.id %>">
-			<img src="<%= user.profile_pic.image.url(:small) %>" id="user-pic-<%= user.id %>">
-			<%= render partial: "users/online_now", locals: {user: user} %>
-		</a>
-	<% else %> 
-		<a href="/users/<%= user.id %>"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut" width="225px"></a>
-	<% end %> 
-	<%= render partial: "users/small_stats", locals: {user: user} %>
-	<div class="total-likes" id="total-likes-<%= user.id %>"></div>
-	<div class="like-action btn btn-info" id="like-action-<%= user.id %>">Like</div>
-	<div class="shun-action btn btn-danger" id="shun-action-<%= user.id %>">Shun</div>
+	<div class="user-frame" id="user-frame-<%= user.id %>">
+		<div class="display-name">
+			<%= user.username %>
+		</div>
+		<% if user.profile_pic %> 
+			<a href="/users/<%= user.id %>">
+				<img src="<%= user.profile_pic.image.url(:small) %>" id="user-pic-<%= user.id %>">
+				<%= render partial: "users/online_now", locals: {user: user} %>
+			</a>
+		<% else %> 
+			<a href="/users/<%= user.id %>"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut" width="225px" height="225px"></a>
+		<% end %>
+		<div class="user-interactions group">
+<!-- 			<%#= render partial: "users/small_stats", locals: {user: user} %> -->
+<!-- 			<div class="total-likes" id="total-likes-<%= user.id %>"></div> -->
+			<div class="like-action btn btn-info" id="like-action-<%= user.id %>">Like</div>
+			<div class="shun-action btn btn-danger" id="shun-action-<%= user.id %>">Shun</div>
+		</div>
+	</div>
+
 </div>

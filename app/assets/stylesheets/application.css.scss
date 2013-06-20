@@ -144,25 +144,22 @@ img {
 	height: 800px;
 	padding-left: 20px;
 	padding-right: 10px;
-	padding-top: 50px;
-	margin-top: 20px;
 	border-right: 1px solid #4C4659;
 }
 
 .signin-bar {
-	margin-top: 100px;
+	margin-top: 120px;
 }
 
 .content-main {
-	padding-top: 100px;
 	margin-top: 20px;
-	width: 800px;
+	width: 900px;
 	float: right;
 }
 
+
 .hero-unit {
-	margin-top: 200px;
-	margin-right: 150px;
+	margin: 200px 50px;
 }
 
 .main-menu {
@@ -250,10 +247,70 @@ img {
 
 /* USER INDEX */
 
+.homepage {
+
+}
+
+.homepage > .home-header {
+
+}
+
+.homepage > .home-header > .page-title {
+	font-family: cursive;
+	font-size: 55px;
+	text-decoration: bold;
+	float: left;
+}
+
+.homepage > .home-header > .remaining-likes {
+	float: right;
+}
+
+.photo-frame {
+	width: 255px;
+	background-color: #fff;
+	box-shadow: 0px 9px 18px rgba(50, 50, 50, 1);
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
 .user-frame > a {
+	margin: auto;
 	display: block;
 	position: relative;
 	width: 225px;
+}
+
+.user-frame .display-name {
+	text-align: center;
+	font-family: cursive;
+	font-size:30px; 
+}
+
+.user-frame > a > img {
+	height: 225px;
+	width: 225px;
+}
+
+.user-frame .user-interactions {
+	padding-bottom: 5px;
+	padding-top: 5px;
+	margin: auto;
+}
+
+.user-frame .user-interactions .total-likes {
+	margin: auto;
+}
+
+.user-frame .user-interactions .like-action {
+	float: left;
+	margin-left: 60px;
+}
+
+.user-frame .user-interactions .shun-action {
+	float: right;
+	margin-right: 60px;
 }
 
 /* NOTIFICATIONS */

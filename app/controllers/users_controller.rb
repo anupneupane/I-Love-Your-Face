@@ -17,8 +17,21 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		# @newest_users = User.where('id != ?', current_user.id).order('id DESC')
-		@newest_users = current_user.deselected_users.sort_by! {|user| user.id }.reverse
+		if params[:page] 
+			start = 0 + (params[:page].to_i * 5)
+			stop = 5 + (params[:page].to_i * 5)
+		else
+			start = 0
+			stop = 5
+		end 
+
+		@users = current_user.deselected_users.sort_by! {|user| user.id }.reverse[start..stop]
+
+		if request.xhr?
+			render partial: "users/photo_grid"
+		else
+			render :index
+		end
 	end
 
 	def edit

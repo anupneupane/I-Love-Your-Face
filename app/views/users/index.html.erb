@@ -1,35 +1,51 @@
-<div class="remaining-likes"><%= render partial: "users/remaining_likes" %></div> 
+<div class="homepage">
+	<div class="home-header group">
+		<div class="remaining-likes"><%= render partial: "users/remaining_likes" %>
+		</div> 
 
-<div class="photogrid">
-	<% if @newest_users.empty? %>
-		<h1>Hmmmm... nothing here</h1>
-	<% else %>
-		<h1>Fresh Meat</h1>
-	<% end %>
-	<% @newest_users.each do |user| %>
-		<%= render partial: "results_display", locals: {user: user} %>
-		<br>
-	<% end %> 
-</div> 
+		<div class="page-title">
+			<h1>Fresh Meat</h1>
+		</div> 
+	</div>
 
-<div class="recent-vistors">
-	<% @visits = Visit.where(visitee_id: current_user.id) %>
-	<% @messages = Message.where(recipient_id: current_user.id) %>
-	<% all = @messages + @visits %>
-	<% all.sort_by! { |event| event.created_at }.reverse!.take(10) %>
+	<div class="photoscroll">
+		<div class="grid-container">
+			<div class="photogrid group">
+				<% if @users.empty? %>
+					<h1>Hmmmm... nothing here</h1>
+				<% end %>
+				<% @users.each do |user| %>
+					<%= render partial: "results_display", locals: {user: user} %>
+				<% end %> 
+			</div> 
+		</div>
 
-	<ul>
-	<% all.each do |event| %>
-		<% if event.class.to_s == "Visit" %>
-			<li><%= User.find(event.visitor_id).username %> visited your profile</li>
-		<% elsif event.class.to_s == "Message" %>
-			<li><%= User.find(event.sender_id).username %> sent you a message</li>
-		<% end %>
-			
-	<% end %> 
-	</ul> 
-</div> 
-		<!-- feed goes here -->
+		<div class="btn" id="previous-6">
+			Previous
+		</div> 
+		<div class="btn" id="next-6">
+			Next 
+		</div> 
+	</div> 
+
+	<!-- <div class="recent-vistors">
+		<%# @visits = Visit.where(visitee_id: current_user.id) %>
+		<%# @messages = Message.where(recipient_id: current_user.id) %>
+		<%# all = @messages + @visits %>
+		<%# all.sort_by! { |event| event.created_at }.reverse!.take(10) %>
+
+		<ul>
+		<%# all.each do |event| %>
+			<%# if event.class.to_s == "Visit" %>
+				<li><%#= User.find(event.visitor_id).username %> visited your profile</li>
+			<%# elsif event.class.to_s == "Message" %>
+				<li><%#= User.find(event.sender_id).username %> sent you a message</li>
+			<%# end %>
+				
+		<%# end %> 
+		</ul> 
+	</div>  -->
+</div>
 
 
 <script>
@@ -37,10 +53,52 @@
 
 	$(document).ready(function () {
 
+		var resultsCounter = 0
+
+		var $next = $("#next-6")
+		var $previous = $("#previous-6")
+		var $gridContainer = $(".grid-container")
+
+		$next.on("click", function () {
+			resultsCounter += 1
+			console.log("success!")
+
+			$.ajax({
+				url: "<%= users_path %>",
+				type: "GET",
+				data: {
+						"page" : resultsCounter,
+					},
+				success: function(data) {
+					$gridContainer.empty();
+					$gridContainer.html(data);
+				}
+			});
+
+		});
+
+
+		$previous.on("click", function () {
+			resultsCounter -= 1
+			console.log("success!")
+
+			$.ajax({
+				url: "<%= users_path %>",
+				type: "GET",
+				data: {
+						"page" : resultsCounter,
+					},
+				success: function(data) {
+					$gridContainer.empty();
+					$gridContainer.html(data);
+				}
+			});
+
+		});
 
 		var $remainingLikes = $(".remaining-likes")
 
-		<% @newest_users.each do |user| %>
+		<% @users.each do |user| %>
 
 			$.ajax({
 				url: "users/<%= user.id %>/likings",

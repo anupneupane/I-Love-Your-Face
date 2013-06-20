@@ -15,5 +15,6 @@
 //= require jquery.ui.effect-explode
 //= require jquery.ui.effect-fold
 //= require jquery.ui.effect-pulsate
+//= require jquery.ui.effect-slide
 //= require bootstrap
 //= require_tree .
