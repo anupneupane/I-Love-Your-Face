@@ -6,73 +6,109 @@
 	</div>
 
 
-</div>
+	<div class="messages-main">
+		<% if @conversations %>
+			<div class="tabbable">
+			  <ul class="nav nav-tabs">
+			    <li class="active"><a href="#tab1" data-toggle="tab">Inbox</a></li>
+			    <li><a href="#tab2" data-toggle="tab">Awaiting Reply</a></li>
+			    <li><a href="#tab3" data-toggle="tab">Trash</a></li>
+			  </ul>
+			  <div class="tab-content">
+			    <div class="tab-pane active" id="tab1">
+			      <% @inbox.each do |convo| %>
+			      	<% if convo.last.recipient.id == current_user.id %>
+								<% other_person = convo.last.sender %>
+								<a href="/users/<%= other_person.id %>/messages">
+									<%= "A message from: " + other_person.username %><br>
+								</a>
+									<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
+									<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
+		 						<hr>
+							<% else %>
+								<% other_person = convo.last.recipient %>
+								<a href="/users/<%= other_person.id %>/messages">
+									<%= "You sent a message to: " + other_person.username %><br>
+								</a>
+									<%= time_ago_in_words(convo.last.created_at) + " ago" %>
+								<hr>
+							<% end %>
+			      <% end %>
+			    </div>
+			    <div class="tab-pane" id="tab2">
+			      <% @awaiting_reply.each do |convo| %>
+			      	<% if convo.last.recipient.id == current_user.id %>
+								<% other_person = convo.last.sender %>
+								<a href="/users/<%= other_person.id %>/messages">
+									<%= "A message from: " + other_person.username %><br>
+								</a>
+									<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
+									<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
+		 						<hr>
+							<% else %>
+								<% other_person = convo.last.recipient %>
+								<a href="/users/<%= other_person.id %>/messages">
+									<%= "You sent a message to: " + other_person.username %><br>
+								</a>
+									<%= time_ago_in_words(convo.last.created_at) + " ago" %>
+								<hr>
+							<% end %>
+			      <% end %>
+			    </div>
+			    <div class="tab-pane" id="tab3">
+			      <p>Nothing here yet...</p>
+			    </div>
+			  </div>
+			</div>
 
+		<% elsif @conversation %>
 
+			<section class="messages">
+				<article class="message">
 
+					<header class="message-header group">
+						<div class="message-thumb">
+							<% partner_id = @conversation.last.sender_id == current_user.id ? @conversation.last.recipient_id : @conversation.last.sender_id %>
+							<%= render partial: "users/results_display", locals: {user: User.find(partner_id)} %>
+						</div>
 
+						<div class="message-form">
+			      	<h2>Send a message</h2>
 
+			        <%= render partial: "message_form", locals: {user_id: params[:user_id], on_profile: false} %> 
+			      </div>
+					</header>
 
-<div class="profile-main-container">
+			      
+			   
+				</article>
+			</section> 
 
-	<div class="profile-body">
-		<div class="inner-profile-body group">
-			<% if @conversations %>
-				<% @conversations.each do |convo| %> 
-					<% if convo.last.recipient.id == current_user.id %>
-						<% other_person = convo.last.sender %>
-						<a href="/users/<%= other_person.id %>/messages">
-							<%= "A message from: " + other_person.username %><br>
-						</a>
-							<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
-							<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
- 						<hr>
-					<% else %>
-						<% other_person = convo.last.recipient %>
-						<a href="/users/<%= other_person.id %>/messages">
-							<%= "You sent a message to: " + other_person.username %><br>
-						</a>
-							<%= time_ago_in_words(convo.last.created_at) + " ago" %>
-						<hr>
-					<% end %>
-					
-				<% end %> 
-			<% elsif @conversation %>
-
-				<section class="messages">
-					<article class="message">
-
-						<header class="group">
-							<div class="message-thumb">
-								<img src="<%= current_user.profile_pic.image.url %>" alt="" width="250px" height="250px">
-							</div>
-						</header>
-
-				      <div class="message-form">
-				      	<h2>Send a message</h2>
-
-				        <%= render partial: "message_form", locals: {user_id: params[:user_id], on_profile: false} %> 
-				      </div>
-				   
-					</article>
-				</section> 
-
-				
-	      <div class="convo-messages">
-					<% @conversation.each do |mess| %>
-							<% mess.read = true %>
-							<% mess.save! %>							
-							<%= render partial: "message", locals: {message: mess} %>
-					<% end %> 
-				</div>
-			<% end %> 
 			
-		</div> <!-- end inner-profile-body --> 
-	</div> <!-- end profile-body --> 
+      <div class="convo-messages">
+				<% @conversation.each do |mess| %>
+						<% mess.read = true %>
+						<% mess.save! %>
+						<% if mess.sender_id == partner_id %>
+							<div class="message-container group">
+								<div class="incoming-message pull-left"> 							
+									<%= render partial: "message", locals: {message: mess} %>
+								</div>
+							</div>
+						<% else %>
+							<div class="message-container group">
+								<div class="outgoing-message pull-right"> 							
+									<%= render partial: "message", locals: {message: mess} %>
+								</div>
+							</div>
+						<% end %> 
+						<hr>
+				<% end %> 
+			</div>	
+		<% end %>
+	</div>
 
-</div> <!-- end profile-main-container --> 
 
-
-
+</div>
 
 

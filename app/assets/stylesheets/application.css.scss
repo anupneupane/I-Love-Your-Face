@@ -345,6 +345,10 @@ img {
 
 /* MESSAGES */
 
+.messages-main {
+	width: 800px;
+}
+
 .messages {
 
 }
@@ -360,15 +364,28 @@ img {
 }
 
 
-.messages > .message > header > .message-thumb{
+.messages > .message > .message-header > .message-thumb{
 	float: left;
 	padding: 10px;
 }
 
-.messages > .message > header > .message-form {
+.messages > .message > .message-header > .message-form {
 	float: right;
+	width: 400px;
 	padding: 10px;
 }
+
+.convo-messages {
+
+}
+
+/*.convo-messages > .incoming-message {
+	float: left;
+}
+
+.convo-messages .outgoing-message {
+	float: right;
+}*/
 
 /* PROFILE SHOW */
 
