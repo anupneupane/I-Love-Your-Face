@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
 	def index
 		if params[:page] && params[:page].to_i > 1
-			start = 0 + ((params[:page].to_i - 1) * 5)
+			start = 1 + ((params[:page].to_i - 1) * 5)
 			stop = 5 + ((params[:page].to_i - 1) * 5)
 		else
 			start = 0

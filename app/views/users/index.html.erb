@@ -9,7 +9,7 @@
 	</div>
 
 	<div class="photoscroll">
-		<div class="grid-container">
+		<div class="grid-container group">
 			<div class="photogrid group">
 				<% if @users.empty? %>
 					<h1>Hmmmm... nothing here</h1>
@@ -19,12 +19,13 @@
 				<% end %> 
 			</div> 
 		</div>
-
-		<div class="btn" id="previous-6">
-			Previous
-		</div> 
-		<div class="btn" id="next-6">
-			Next 
+		<div class="photogrid-nav group">
+			<div class="btn" id="previous-6">
+				Previous
+			</div> 
+			<div class="btn" id="next-6">
+				Next 
+			</div>
 		</div> 
 	</div> 
 
@@ -95,10 +96,6 @@
 
 		$previous.on("click", function () {
 			pageCounter -= 1
-
-			if (pageCounter < 1) {
-				pageCounter += 1;
-			}
 
 			$.ajax({
 				url: "<%= users_path %>",
