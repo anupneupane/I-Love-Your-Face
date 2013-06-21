@@ -18,34 +18,28 @@
 			    <div class="tab-pane active" id="tab1">
 			      <% @inbox.each do |convo| %>
 			      	<% if convo.last.recipient.id == current_user.id %>
-								<% other_person = convo.last.sender %>
-								<a href="/users/<%= other_person.id %>/messages">
-									<%= "A message from: " + other_person.username %><br>
-								</a>
-									<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
-									<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
+			      		<div class="message-snipet group"> 
+			      			<div class="snipet-header">
+									<% other_person = convo.last.sender %>
+									<a href="/users/<%= other_person.id %>">
+										<%= "A message from: " + other_person.username %><br>
+									</a>
+										<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
+										<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
+									</div>
+									<div class="snipet-preview">
+										<a href="/users/<%= other_person.id %>/messages"><p>
+											<%= convo.last.body.length > 500 ? convo.last.body[0..500] + "..." : convo.last.body %>
+										</p></a>
+									</div>
+		 						</div>
 		 						<hr>
-							<% else %>
-								<% other_person = convo.last.recipient %>
-								<a href="/users/<%= other_person.id %>/messages">
-									<%= "You sent a message to: " + other_person.username %><br>
-								</a>
-									<%= time_ago_in_words(convo.last.created_at) + " ago" %>
-								<hr>
 							<% end %>
 			      <% end %>
 			    </div>
 			    <div class="tab-pane" id="tab2">
 			      <% @awaiting_reply.each do |convo| %>
-			      	<% if convo.last.recipient.id == current_user.id %>
-								<% other_person = convo.last.sender %>
-								<a href="/users/<%= other_person.id %>/messages">
-									<%= "A message from: " + other_person.username %><br>
-								</a>
-									<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
-									<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
-		 						<hr>
-							<% else %>
+			      	<% if convo.last.recipient.id != current_user.id %>
 								<% other_person = convo.last.recipient %>
 								<a href="/users/<%= other_person.id %>/messages">
 									<%= "You sent a message to: " + other_person.username %><br>

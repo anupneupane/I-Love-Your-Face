@@ -349,6 +349,22 @@ img {
 	width: 800px;
 }
 
+.message-snipet {
+
+}
+
+.message-snipet > .snipet-header {
+	float: left;
+	width: 150px;
+	padding-right: 10px;
+	border-right: 1px solid #BABABA;
+}
+
+.message-snipet > .snipet-body > a {
+	display: block;
+	height: 60px;
+}
+
 .messages {
 
 }
