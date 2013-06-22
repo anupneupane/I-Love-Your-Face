@@ -177,6 +177,10 @@ img {
 	color: white;
 }
 
+.main-menu > .nav > li > a:hover {
+	background-color: #E5B7EB;
+}
+
 /* CARROUSEL */
 .carrousel-holder {
 	position: relative;
@@ -368,7 +372,7 @@ img {
 .convo-messages {
 	width: 700px;
 	margin: 5px;
-	background-color: #B4DCDE;
+	background-color: #E5B7EB;
 	border-radius: 15px;
 	border: 5px solid white;
 }
@@ -394,7 +398,7 @@ img {
 .messages > .message > .message-header > .message-form {
 	width: 700px;
 	margin: 5px;
-	background-color: #B4DCDE;
+	background-color: #E5B7EB;
 	border-radius: 15px;
 	border: 5px solid white;
 }
