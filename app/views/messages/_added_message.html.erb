@@ -1,0 +1,46 @@
+
+<div class="added-message group">
+<% if message.sender_id == current_user.id %>
+	<div class="outgoing-message pull-right">
+		<div class="single-message group">
+			<div class="single-message-body-right bubble-right">
+		    <p><%= message.body %></p>
+		  </div>
+
+			<header class="single-message-header-right group">
+				<div class="single-message-thumb">
+					<a href="#"><img src="<%= current_user.profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+				</div>
+				<div class="single-message-info">
+					<h2><a href="#">
+						You
+						</a></h2>
+					<time><%= time_ago_in_words(message.created_at) + " ago" %></time>
+				</div>
+			</header>
+		</div>
+	</div>
+
+<% else %>
+
+	<div class="single-message group">
+	 	<header class="single-message-header-left group">
+			<div class="single-message-thumb">
+				<a href="#"><img src="<%= User.find(message.sender_id).profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+			</div>
+			<div class="single-message-info">
+				<h2><a href="#">
+					<%= User.find(message.sender_id).username %>
+					</a></h2>
+				<time><%= time_ago_in_words(message.created_at) + " ago" %></time>
+			</div>
+		</header>
+
+		<div class="single-message-body-left bubble-left">
+	    <p><%= message.body %></p>
+	  </div>
+	</div>
+
+<% end %> 
+
+</div>

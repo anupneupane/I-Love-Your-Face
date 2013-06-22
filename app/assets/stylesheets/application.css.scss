@@ -333,7 +333,7 @@ img {
 /* NOTIFICATIONS */
 
 .unread {
-	background: blue;
+	background: #0D244A;
 	color: white;
 }
 
@@ -363,10 +363,17 @@ img {
 	border-right: 1px solid #BABABA;
 }
 
-.message-snipet > .snipet-body > a {
+.message-snipet > .snipet-preview {
+	margin-left: 20px;
+	float: left;
+}
+
+.message-snipet > .snipet-preview > a {
 	display: block;
+	width: 600px;
 	height: 60px;
 }
+
 
 
 .convo-messages {
@@ -391,10 +398,6 @@ img {
 
 }
 
-.messages > .message > .message-header > .message-form > h2 {
-	font-size: 20px;
-}
-
 .messages > .message > .message-header > .message-form {
 	width: 700px;
 	margin: 5px;
@@ -404,11 +407,27 @@ img {
 }
 
 #new-message-form {
-	width: 600px;
+	padding-top: 20px;
+	padding-left: 150px;
+	width: 390px;
+}
+
+.message-submit {
+
+}
+
+.message-submit-prompt {
+	float: left;
+	font-size: 20px;
+	font-family: cursive;
+}
+
+.message-submit-button {
+	float: right;
 }
 
 .single-message {
-	padding-top: 25px;
+	padding-top: 15px;
 }
 
 .single-message-thumb > a > img {
@@ -423,6 +442,7 @@ img {
 .single-message-header-right {
 	float: right;
 	padding-right: 25px;
+	width: 70px;
 }
 .single-message-body-right {
 	float: left;
@@ -432,6 +452,7 @@ img {
 .single-message-header-left {
 	float: left;
 	padding-left: 25px;
+	width: 70px;
 }
 
 .single-message-body-left {

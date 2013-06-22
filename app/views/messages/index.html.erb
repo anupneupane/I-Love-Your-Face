@@ -26,7 +26,10 @@
 			      			<div class="snipet-header">
 									<% other_person = convo.last.sender %>
 									<a href="/users/<%= other_person.id %>">
-										<%= "A message from: " + other_person.username %><br>
+										<div class="single-message-thumb">
+											<img src="<%= other_person.profile_pic.image.url(:thumb) %>" alt="" width="50" height="50">
+										</div>
+										<%= other_person.username %><br>
 									</a>
 										<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
 										<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
@@ -67,8 +70,6 @@
 					<header class="message-header group">
 
 						<div class="message-form">
-			      	<h2>Say something to <%= @partner.username %></h2>
-
 			        <%= render partial: "message_form", locals: {user_id: params[:user_id], on_profile: false} %> 
 			      </div>
 					</header>
@@ -80,25 +81,10 @@
 
 			
       <div class="convo-messages">
-				<% @conversation.each do |mess| %>
-						<% mess.read = true %>
-						<% mess.save! %>
-						<% if mess.sender_id == @partner.id %>
-							<div class="message-container group">
-								<div class="incoming-message pull-left"> 							
-									<%= render partial: "message", locals: {message: mess} %>
-								</div>
-							</div>
-						<% else %>
-							<div class="message-container group">
-								<div class="outgoing-message pull-right"> 							
-									<%= render partial: "message", locals: {message: mess} %>
-								</div>
-							</div>
-						<% end %> 
-
-				<% end %> 
+      	<%= render partial: "all_messages_in_convo" %>
 			</div>	
+
+
 		<% end %>
 	</div>
 
@@ -106,3 +92,30 @@
 </div>
 
 
+<script>
+	
+	$convoMessages = $(".convo-messages")
+
+	$(document).ready(function () {
+
+		<% if @partner %>
+			window.setInterval(function() {
+				
+
+				$.ajax({
+					url: "<%= messages_path %>",
+					type: "GET",
+					data: {
+						"user_id" : <%= @partner.id %>
+						},
+					success: function(data) {
+						$convoMessages.empty();
+						$convoMessages.html(data);
+					}
+				});
+			},1000);
+		<% end %>
+
+	});
+	
+</script> 

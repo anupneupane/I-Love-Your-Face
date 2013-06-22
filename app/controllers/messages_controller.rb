@@ -38,6 +38,12 @@ class MessagesController < ApplicationController
 				end
 			end.select { |convo| !convo.empty? }
 		end
+
+		if request.xhr?
+			render partial: "all_messages_in_convo"
+		else
+			render :index
+		end
 	end
 
 
@@ -48,7 +54,7 @@ class MessagesController < ApplicationController
 		@message.save! 
 
 		if request.xhr?
-			render partial: "message", locals: {message: @message}
+			render partial: "added_message", locals: {message: @message}
 		else
 			redirect_to messages_url
 		end

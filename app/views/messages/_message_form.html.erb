@@ -1,23 +1,16 @@
 
 
 <%= form_for(Message.new, remote: true, html: {id: "new-message-form"}) do |f| %>
-	<%= f.text_area :body, :size => "60x6" %>
+	<%= f.text_area :body, :style => "width: 380px; border-radius: 15px", :rows => "5" %>
 	<%= hidden_field_tag "message[recipient_id]", user_id %> 
 	<br> 
-	<%= f.submit "Send" %>
+	<div class="message-submit group">
+		<h2 class="message-submit-prompt">Say something to <%= @partner.username %></h2>
+		<div class="message-submit-button">
+			<%= f.submit "Send", :class => "btn" %>
+		</div> 
+	</div>
 <% end %> 
-
-
-<!-- <form id: "new-message-form" action="/messages" method="post">
-	<label>
-		<input type="textarea" name="message[body]" value="what do you say?">
-	</label>
-	<label>
-		<input type="hidden" name="message[recipient_id]" value="<%#= user_id%>">  
-	</label>
-	<input type="submit" name="commit" value="Send">
-</form>
- -->
 
 
 <script> 
@@ -31,6 +24,8 @@
 				alert("Your message was sent!")
 			} 
 			else {
+				alert("Your message was sent!")
+				console.log(data);
 				$(".convo-messages").prepend(data);
 			}
 			
