@@ -1,47 +1,40 @@
-<div class="profile-container">
+<div class="homepage">
+	<div class="home-header group">
+		<div class="remaining-likes"><%= render partial: "users/remaining_likes" %>
+		</div> 
 
-	<section class="top-profile-container">
-		<div class="interaction-nav">
-			<% if current_user.id != @user.id %> 
-				<div class="remaining-likes"><%= render partial: "users/remaining_likes" %></div> 
-				<div class="total-likes" id="total-likes-<%= @user.id %>"></div>
-				<div class="like-action btn btn-info" id="like-action-<%= @user.id %>">Like</div>
-				<div class="shun-action btn btn-danger" id="shun-action-<%= @user.id %>">Shun</div>
-				<a href="/users/<%= @user.id %>/messages">
-					<div class="send-message-btn btn">
-					 Send <%= @user.username %> a message
-					</div>
-				</a>
-			<% end %> 
+		<div class="page-title">
+			<h1><%= @user.username %>'s page</h1>
+		</div> 
+	</div>
+
+	<div class="profile-head group">
+		<div class="user-picture"> 
+			<%= render partial: "users/small_user", locals: {user: @user} %>
 		</div>
 
-		<% if @user.profile_pic %> 
-			<%= render partial: "users/small_user", locals: {user: @user} %>
-			<a href="<%= @user.id %>/photos">(view photos)</a>
-		<% else %> 
-			<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut">
-		<% end %>
-		<% if @user.id == current_user.id %>
-			<a href="<%= new_photo_path %>">(add more photos)</a>
-		<% end %> 
-		<%= render partial: "users/small_stats", locals: {user: @user} %>
-		<%= render partial: "users/vital_stats" %>
-		<% if @user.id == current_user.id %>
-			<a href="<%= edit_user_path(@user) %>">Edit Details</a>
-		<% end %>
-	</section>
-
-	<nav class="profile-navbar">
-
-	</nav> 
-
-	<section class="bottom-profile-container">
+		<div class="user-details">
+			<%= render partial: "users/small_stats", locals: {user: @user} %>
+			<%= render partial: "users/vital_stats" %>
+			<% if @user.id == current_user.id %>
+				<a href="<%= edit_user_path(@user) %>">Edit Details</a>
+			<% end %>
+		</div>
 		<% if current_user.id != @user.id %> 
 			<div class="profile-message-form">
 				<%= render partial: "messages/message_form", locals: {user_id: params[:id], on_profile: true} %>
 			</div> 
-
 		<% end %>
+	</div>
+
+	<div id="add-pics">
+		<% if @user.id == current_user.id %>
+			<a href="<%= new_photo_path %>">(add more photos)</a>
+		<% end %> 
+	</div>
+
+	<section class="bottom-profile-container">
+		
 
 
 		<div class="personal-essays-container">
@@ -64,7 +57,7 @@
 
 	</section>
 
-</div> <!-- profile-container -->
+</div> 
 
 
 
