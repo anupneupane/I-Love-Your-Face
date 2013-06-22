@@ -1,24 +1,49 @@
 <section class="messages">
 	<article class="message">
 
-		<header class="group">
-			<div class="message-thumb">
-				<a href="#"><img src="<%= message.sender_id == current_user.id ? current_user.profile_pic.image.url : User.find(message.sender_id).profile_pic.image.url %>" alt="" width="75" height="75"></a>
-			</div>
-			<div class="message-info">
-				<h2><a href="#">
-					<%= message.sender_id == current_user.id ? "You" : User.find(message.sender_id).username %>
-					</a></h2>
-				<time><%= time_ago_in_words(message.created_at) + " ago" %></time>
-			</div>
-		</header>
 
-      <div class="message-body">
-        
-        <p><%= message.body %></p>
+		<% if message.sender_id == current_user.id %>
+			<div class="single-message group">
+				<div class="single-message-body-right bubble-right">
+	        <p><%= message.body %></p>
+	      </div>
+
+				<header class="single-message-header-right group">
+					<div class="single-message-thumb">
+						<a href="#"><img src="<%= current_user.profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+					</div>
+					<div class="single-message-info">
+						<h2><a href="#">
+							You
+							</a></h2>
+						<time><%= time_ago_in_words(message.created_at) + " ago" %></time>
+					</div>
+				</header>
+			</div>
+
       
+
+   	<% else %>
+
+   		<div class="single-message group">
+		   	<header class="single-message-header-left group">
+					<div class="single-message-thumb">
+						<a href="#"><img src="<%= User.find(message.sender_id).profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+					</div>
+					<div class="single-message-info">
+						<h2><a href="#">
+							<%= User.find(message.sender_id).username %>
+							</a></h2>
+						<time><%= time_ago_in_words(message.created_at) + " ago" %></time>
+					</div>
+				</header>
+
+	    	<div class="single-message-body-left bubble-left">
+	        <p><%= message.body %></p>
+	      </div>
       </div>
-   
+
+   	<% end %> 
 
 	</article>
 

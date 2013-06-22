@@ -5,7 +5,7 @@ class Photo < ActiveRecord::Base
 	has_attached_file :image, styles: { 
 		large: "700x700>",
 		small: "225x225#",
-		thumb: "100x100#"
+		thumb: "50x50#"
 	}
 
 

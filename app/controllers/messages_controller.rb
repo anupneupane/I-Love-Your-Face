@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
 	def index 
 		if params[:user_id]
 			partner_id = params[:user_id]
-
+			@partner = User.find(partner_id)
 			@conversation = Message.where('(sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?)', current_user.id, partner_id , partner_id , current_user.id).order('id DESC')
 		else
 			conversation_partner_ids = current_user.conversation_partners.map { |partner| partner.id }

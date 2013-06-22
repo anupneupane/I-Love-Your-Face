@@ -1,9 +1,23 @@
-<%= simple_form_for(Message.new, remote: true, html: {id: "new-message-form"}) do |f| %>
-	<%= f.text_area :body, :cols => "10", :rows => "10" %>
+
+
+<%= form_for(Message.new, remote: true, html: {id: "new-message-form"}) do |f| %>
+	<%= f.text_area :body, :size => "60x6" %>
 	<%= hidden_field_tag "message[recipient_id]", user_id %> 
 	<br> 
-	<%= f.submit "Send Message" %>
+	<%= f.submit "Send" %>
 <% end %> 
+
+
+<!-- <form id: "new-message-form" action="/messages" method="post">
+	<label>
+		<input type="textarea" name="message[body]" value="what do you say?">
+	</label>
+	<label>
+		<input type="hidden" name="message[recipient_id]" value="<%#= user_id%>">  
+	</label>
+	<input type="submit" name="commit" value="Send">
+</form>
+ -->
 
 
 <script> 

@@ -314,7 +314,6 @@ img {
 }
 
 .photogrid-nav {
-
 	width: 795px;
 }
 
@@ -365,6 +364,15 @@ img {
 	height: 60px;
 }
 
+
+.convo-messages {
+	width: 700px;
+	margin: 5px;
+	background-color: #B4DCDE;
+	border-radius: 15px;
+	border: 5px solid white;
+}
+
 .messages {
 
 }
@@ -379,29 +387,132 @@ img {
 
 }
 
-
-.messages > .message > .message-header > .message-thumb{
-	float: left;
-	padding: 10px;
+.messages > .message > .message-header > .message-form > h2 {
+	font-size: 20px;
 }
 
 .messages > .message > .message-header > .message-form {
+	width: 700px;
+	margin: 5px;
+	background-color: #B4DCDE;
+	border-radius: 15px;
+	border: 5px solid white;
+}
+
+#new-message-form {
+	width: 600px;
+}
+
+.single-message {
+	padding-top: 25px;
+}
+
+.single-message-thumb > a > img {
+	border: 2px solid white;
+
+}
+
+.single-message-info {
+
+}
+
+.single-message-header-right {
 	float: right;
-	width: 400px;
-	padding: 10px;
+	padding-right: 25px;
 }
-
-.convo-messages {
-
-}
-
-/*.convo-messages > .incoming-message {
+.single-message-body-right {
 	float: left;
+	margin-right: 20px; 
 }
 
-.convo-messages .outgoing-message {
+.single-message-header-left {
+	float: left;
+	padding-left: 25px;
+}
+
+.single-message-body-left {
 	float: right;
-}*/
+	padding-left: 10px;
+}
+
+.single-message-info {
+	
+}
+
+.bubble-left {
+position: relative;
+padding: 25px;
+background: #FFFFFF;
+border: #7F7F7F solid 2px;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+}
+
+.bubble-left:after {
+content: "";
+position: absolute;
+top: 20px;
+left: -20px;
+border-style: solid;
+border-width: 10px 20px 10px 0;
+border-color: transparent #FFFFFF;
+display: block;
+width: 0;
+z-index: 1;
+}
+
+.bubble-left:before {
+content: "";
+position: absolute;
+top: 19px;
+left: -23px;
+border-style: solid;
+border-width: 11px 21px 11px 0;
+border-color: transparent #7F7F7F;
+display: block;
+width: 0;
+z-index: 0;
+}
+
+.bubble-right {
+position: relative;
+padding: 25px;
+background: #FFFFFF;
+border: #7F7F7F solid 2px;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+}
+
+.bubble-right:after {
+content: "";
+position: absolute;
+top: 20px;
+right: -20px;
+border-style: solid;
+border-width: 10px 0 10px 20px;
+border-color: transparent #FFFFFF;
+display: block;
+width: 0;
+z-index: 1;
+}
+
+.bubble-right:before {
+content: "";
+position: absolute;
+top: 19px;
+left: 100%;
+border-style: solid;
+border-width: 11px 0 11px 21px;
+border-color: transparent #7F7F7F;
+display: block;
+width: 0;
+z-index: 0;
+}
+
+
+
 
 /* PROFILE SHOW */
 
