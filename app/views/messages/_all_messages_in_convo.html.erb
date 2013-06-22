@@ -1,8 +1,8 @@
 
 <% @conversation.each do |mess| %>
-		<% mess.read = true %>
-		<% mess.save! %>
 		<% if mess.sender_id == @partner.id %>
+			<% mess.read = true %>
+			<% mess.save! %>
 			<div class="message-container group">
 				<div class="incoming-message pull-left"> 							
 					<%= render partial: "message", locals: {message: mess} %>
