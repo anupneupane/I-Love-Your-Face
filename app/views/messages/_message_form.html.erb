@@ -5,7 +5,11 @@
 	<%= hidden_field_tag "message[recipient_id]", user_id %> 
 	<br> 
 	<div class="message-submit group">
-		<h2 class="message-submit-prompt">Say something to <%= @partner.username %></h2>
+		<% if @partner %>
+			<h2 class="message-submit-prompt">Say something to <%= @partner.username %></h2>
+		<% else %>
+			<h2 class="message-submit-prompt">Say something to <%= @user.username %></h2>
+		<% end %>
 		<div class="message-submit-button">
 			<%= f.submit "Send", :class => "btn" %>
 		</div> 
