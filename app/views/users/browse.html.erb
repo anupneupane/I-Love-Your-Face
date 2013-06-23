@@ -1,39 +1,20 @@
-<div class="homepage">
-	<div class="home-header group">
-
-		<div class="page-title">
-			<h1>Browse</h1>
+<div class="browse-master"> 
+	<%= render partial: "master_browse", locals: {first_page: first_page, total_pages: total_pages} %>
+</div>
+	<div class="photogrid-nav group">
+		<div class="btn" id="previous-6">
+			Previous
 		</div> 
-	</div>
-
-	<div class="photoscroll">
-		<div class="grid-container group">
-			<div class="photogrid group">
-				<% if @users.empty? %>
-					<h1>Hmmmm... nothing here</h1>
-				<% end %>
-				<% @users.each do |user| %>
-					<%= render partial: "profile_display", locals: {user: user} %>
-				<% end %> 
-			</div> 
+		<div class="btn" id="next-6">
+			Next 
 		</div>
-		<div class="photogrid-nav group">
-			<div class="btn" id="previous-6">
-				Previous
-			</div> 
-			<div class="btn" id="next-6">
-				Next 
-			</div>
-		</div> 
 	</div> 
 
-</div>
-
-
 <script>
-	
 
 	$(document).ready(function () {
+
+		var $browseMaster = $(".browse-master")
 
 		var pageCounter = 1
 
@@ -61,8 +42,8 @@
 						"page" : pageCounter,
 					},
 				success: function(data) {
-					$gridContainer.empty();
-					$gridContainer.html(data);
+					$browseMaster.empty();
+					$browseMaster.html(data);
 					if ($previous.hasClass("destroyed")) {
 						$previous.removeClass("destroyed");
 					}
@@ -85,8 +66,8 @@
 						"page" : pageCounter,
 					},
 				success: function(data) {
-					$gridContainer.empty();
-					$gridContainer.html(data);
+					$browseMaster.empty();
+					$browseMaster.html(data);
 					if ($next.hasClass("destroyed")) {
 						$next.removeClass("destroyed");
 					}
@@ -98,86 +79,7 @@
 
 		});
 
-		var $remainingLikes = $(".remaining-likes")
-
-		<% @users.each do |user| %>
-
-			$.ajax({
-				url: "users/<%= user.id %>/likings",
-				type: "GET",
-				data: {
-						"liked_user_id" : "<%= user.id %>",
-					},
-				success: function(data) {
-					var $totalLikes = $("#total-likes-<%= user.id %>")
-					$totalLikes.html(data);
-				}
-			});
-			
-
-			var $likeAction = $("#like-action-<%= user.id %>")
-
-
-			$likeAction.on("click", function (event) {
-
-				$.ajax({
-					url: "<%= likings_path %>",
-					type: "POST",
-					data: {
-							"liked_user_id" : "<%= user.id %>",
-							"liking_user_id" : "<%= current_user.id %>"  
-						},
-					success: function(data) {
-						console.log("success!");
-						$remainingLikes.empty();
-						$remainingLikes.html(data)
-						$.ajax({
-							url: "users/<%= user.id %>/likings",
-							type: "GET",
-							data: {
-									"liked_user_id" : "<%= user.id %>",
-								},
-							success: function(data) {
-								var $totalLikes = $("#total-likes-<%= user.id %>")
-								$totalLikes.empty();
-								$totalLikes.html(data);
-							}
-						});
-					}
-				});
-
-			});
-
-
-			var $shunAction = $("#shun-action-<%= user.id %>")
-
-			$shunAction.on("click", function (event) {
-
-				$.ajax({
-					url: "<%= shunnings_path %>",
-					type: "POST",
-					data: {
-							"shunned_user_id" : "<%= user.id %>",
-							"shunning_user_id" : "<%= current_user.id %>"  
-						},
-					success: function(data) {
-						// explode really doesn't seem to look right, but kind of works
-						var $shunnedUser = $("#user-frame-<%= user.id %>") 
-						var $shunnedUserImage = $("#user-pic-<%= user.id %>") 
-						$shunnedUserImage.effect("explode", {pieces: 9}, 1000);
-						$shunnedUser.empty();
-						$shunnedUser.addClass(".destroyed");
-					}
-				});
-
-			});
-
-		<% end %> 
-
-
-
-
-	});
+	})
 
 
 </script> 

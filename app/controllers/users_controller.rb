@@ -105,14 +105,33 @@ class UsersController < ApplicationController
 		@users = @users[start..stop]
 
 		if request.xhr?
-			render partial: "users/photo_grid", locals: {first_page: first_page, total_pages: total_pages}
+			render partial: "users/master_browse", locals: {first_page: first_page, total_pages: total_pages}
 		else
 			render :browse, locals: {first_page: first_page, total_pages: total_pages}
 		end
 	end
 
 	def blacklist
+		if params[:page] && params[:page].to_i > 1
+			start = 1 + ((params[:page].to_i - 1) * 5)
+			stop = 5 + ((params[:page].to_i - 1) * 5)
+		else
+			start = 0
+			stop = 5
+			first_page = true 
+		end 
+
 		@users = current_user.users_ive_shunned
+
+		total_pages = (@users.size / 6.0).ceil
+
+		@users = @users[start..stop]
+
+		if request.xhr?
+			render partial: "users/shunned_grid", locals: {first_page: first_page, total_pages: total_pages}
+		else
+			render :blacklist, locals: {first_page: first_page, total_pages: total_pages}
+		end
 	end
 
 

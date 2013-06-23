@@ -1,0 +1,6 @@
+<% if @users.empty? %>
+	<h1>Hmmmm... nothing here</h1>
+<% end %>
+<% @users.each do |user| %>
+	<%= render partial: "shunned_view", locals: {user: user} %>
+<% end %> 

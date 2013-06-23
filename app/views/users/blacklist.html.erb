@@ -1,14 +1,28 @@
-<div class="photogrid">
-	<% if @users.empty? %>
-		<h1>No one here, you're so nice!</h1>
-	<% else %>
-		<h1>Shunned Users</h1>
-	<% end %>
-	<% @users.each do |user| %>
-		<%= render partial: "shunned_view", locals: {user: user} %>
-		<br>
-	<% end %> 
-</div> 
+<div class="homepage">
+	<div class="home-header group">
+
+		<div class="page-title">
+			<h1>Shunned Users</h1>
+		</div> 
+	</div>
+
+	<div class="photoscroll">
+		<div class="grid-container group">
+			<div class="photogrid group">
+				<%= render partial: "shunned_grid" %>
+			</div> 
+		</div>
+		<div class="photogrid-nav group">
+			<div class="btn" id="previous-6">
+				Previous
+			</div> 
+			<div class="btn" id="next-6">
+				Next 
+			</div>
+		</div> 
+	</div> 
+
+</div>
 
 
 <script>
@@ -17,6 +31,68 @@
 	$(document).ready(function () {
 
 
+		var pageCounter = 1
+
+		var $next = $("#next-6")
+		var $previous = $("#previous-6")
+		var $gridContainer = $(".grid-container")
+
+		if (pageCounter == <%= total_pages %>) {
+			$next.addClass("destroyed");
+		}
+
+		if (pageCounter == 1) {
+			$previous.addClass("destroyed");
+		}
+
+
+		$next.on("click", function () {
+			pageCounter += 1
+			
+
+			$.ajax({
+				url: "/blacklist",
+				type: "GET",
+				data: {
+						"page" : pageCounter,
+					},
+				success: function(data) {
+					$gridContainer.empty();
+					$gridContainer.html(data);
+					if ($previous.hasClass("destroyed")) {
+						$previous.removeClass("destroyed");
+					}
+					if (pageCounter == <%= total_pages %>) {
+						$next.addClass("destroyed");
+					}
+				}
+			});
+
+		});
+
+
+		$previous.on("click", function () {
+			pageCounter -= 1
+
+			$.ajax({
+				url: "/blacklist",
+				type: "GET",
+				data: {
+						"page" : pageCounter,
+					},
+				success: function(data) {
+					$gridContainer.empty();
+					$gridContainer.html(data);
+					if ($next.hasClass("destroyed")) {
+						$next.removeClass("destroyed");
+					}
+					if (pageCounter == 1) {
+						$previous.addClass("destroyed");
+					}
+				}
+			});
+
+		});
 
 		<% @users.each do |user| %>
 
