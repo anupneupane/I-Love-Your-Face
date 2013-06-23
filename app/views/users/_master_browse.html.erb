@@ -1,28 +1,21 @@
-<div class="homepage">
-	<div class="home-header group">
 
-		<div class="page-title">
-			<h1>Browse</h1>
+
+<div class="photoscroll">
+	<div class="grid-container group">
+		<div class="photogrid group">
+			<% if @users.empty? %>
+				<h1>Hmmmm... nothing here</h1>
+			<% end %>
+			<% @users.each do |user| %>
+				<div id="replace-user-<%= user.id %>">
+					<%= render partial: "profile_display", locals: {user: user} %>
+				</div>
+			<% end %> 
 		</div> 
 	</div>
+	
+</div> 
 
-	<div class="photoscroll">
-		<div class="grid-container group">
-			<div class="photogrid group">
-				<% if @users.empty? %>
-					<h1>Hmmmm... nothing here</h1>
-				<% end %>
-				<% @users.each do |user| %>
-					<div id="replace-user-<%= user.id %>">
-						<%= render partial: "profile_display", locals: {user: user} %>
-					</div>
-				<% end %> 
-			</div> 
-		</div>
-		
-	</div> 
-
-</div>
 
 
 <script>

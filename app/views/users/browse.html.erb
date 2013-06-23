@@ -1,15 +1,24 @@
-<div class="browse-master"> 
-	<%= render partial: "master_browse", locals: {first_page: first_page, total_pages: total_pages} %>
-</div>
-	<div class="photogrid-nav group">
-		<div class="btn" id="previous-6">
-			Previous
-		</div> 
-		<div class="btn" id="next-6">
-			Next 
-		</div>
-	</div> 
+<div class="homepage">
+	<div class="home-header group">
 
+		<div class="page-title">
+			<h1>Browse</h1>
+		</div> 
+	</div>
+
+	<div class="browse-master"> 
+		<%= render partial: "master_browse", locals: {first_page: first_page, total_pages: total_pages} %>
+	</div>
+		<div class="photogrid-nav group">
+			<div class="btn" id="previous-6">
+				Previous
+			</div> 
+			<div class="btn" id="next-6">
+				Next 
+			</div>
+		</div> 
+
+</div>
 <script>
 
 	$(document).ready(function () {
@@ -78,6 +87,25 @@
 			});
 
 		});
+
+		$(".shun-action").on("click", function () {
+
+			$.ajax({
+				url: "/browse",
+				type: "GET",
+				data: {
+						"page" : pageCounter,
+					},
+				success: function(data) {
+					<% if @users.size <= 6 %> 
+						$next.addClass("destroyed");
+					<% end %>
+					$browseMaster.empty();
+					$browseMaster.html(data);
+				}
+			});		
+		})
+
 
 	})
 
