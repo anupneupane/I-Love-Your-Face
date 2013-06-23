@@ -1,7 +1,5 @@
 <div class="homepage">
 	<div class="home-header group">
-		<div class="remaining-likes"><%= render partial: "users/remaining_likes" %>
-		</div> 
 
 		<div class="page-title">
 			<h1>Fresh Meat</h1>
@@ -147,9 +145,8 @@
 							"liking_user_id" : "<%= current_user.id %>"  
 						},
 					success: function(data) {
-						console.log("success!");
 						$remainingLikes.empty();
-						$remainingLikes.html(data)
+						$remainingLikes.html(data);
 						$.ajax({
 							url: "users/<%= user.id %>/likings",
 							type: "GET",
@@ -157,7 +154,7 @@
 									"liked_user_id" : "<%= user.id %>",
 								},
 							success: function(data) {
-								var $totalLikes = $("#total-likes-<%= user.id %>")
+								var $totalLikes = $("#total-likes-<%= user.id %>");
 								$totalLikes.empty();
 								$totalLikes.html(data);
 							}

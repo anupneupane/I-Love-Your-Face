@@ -156,7 +156,7 @@ img {
 }
 
 .content-main {
-	margin-top: 20px;
+	margin-top: 10px;
 	width: 900px;
 	float: right;
 }
@@ -315,6 +315,7 @@ img {
 	font-size: 55px;
 	text-decoration: bold;
 	float: left;
+	padding-bottom: 10px;
 }
 
 .remaining-likes {
@@ -325,6 +326,10 @@ img {
 .remaining-likes > span {
 	padding: 5px;
 	font-size: 16px;
+}
+
+.remaining-likes > p {
+	font-family: cursive;
 }
 
 .photo-frame {
