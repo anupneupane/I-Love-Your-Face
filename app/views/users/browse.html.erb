@@ -1,16 +1,33 @@
-<div class="remaining-likes"><%= render partial: "users/remaining_likes" %></div> 
+<div class="homepage">
+	<div class="home-header group">
 
-<div class="photogrid">
-	<% if @users.empty? %>
-		<h1>Hmmmm... nothing here</h1>
-	<% else %>
-		<h1>All Users</h1>
-	<% end %>
-	<% @users.each do |user| %>
-		<%= render partial: "results_display", locals: {user: user} %>
-		<br>
-	<% end %> 
-</div> 
+		<div class="page-title">
+			<h1>Browse</h1>
+		</div> 
+	</div>
+
+	<div class="photoscroll">
+		<div class="grid-container group">
+			<div class="photogrid group">
+				<% if @users.empty? %>
+					<h1>Hmmmm... nothing here</h1>
+				<% end %>
+				<% @users.each do |user| %>
+					<%= render partial: "profile_display", locals: {user: user} %>
+				<% end %> 
+			</div> 
+		</div>
+		<div class="photogrid-nav group">
+			<div class="btn" id="previous-6">
+				Previous
+			</div> 
+			<div class="btn" id="next-6">
+				Next 
+			</div>
+		</div> 
+	</div> 
+
+</div>
 
 
 <script>
@@ -18,6 +35,68 @@
 
 	$(document).ready(function () {
 
+		var pageCounter = 1
+
+		var $next = $("#next-6")
+		var $previous = $("#previous-6")
+		var $gridContainer = $(".grid-container")
+
+		if (pageCounter == <%= total_pages %>) {
+			$next.addClass("destroyed");
+		}
+
+		if (pageCounter == 1) {
+			$previous.addClass("destroyed");
+		}
+
+
+		$next.on("click", function () {
+			pageCounter += 1
+			
+
+			$.ajax({
+				url: "/browse",
+				type: "GET",
+				data: {
+						"page" : pageCounter,
+					},
+				success: function(data) {
+					$gridContainer.empty();
+					$gridContainer.html(data);
+					if ($previous.hasClass("destroyed")) {
+						$previous.removeClass("destroyed");
+					}
+					if (pageCounter == <%= total_pages %>) {
+						$next.addClass("destroyed");
+					}
+				}
+			});
+
+		});
+
+
+		$previous.on("click", function () {
+			pageCounter -= 1
+
+			$.ajax({
+				url: "/browse",
+				type: "GET",
+				data: {
+						"page" : pageCounter,
+					},
+				success: function(data) {
+					$gridContainer.empty();
+					$gridContainer.html(data);
+					if ($next.hasClass("destroyed")) {
+						$next.removeClass("destroyed");
+					}
+					if (pageCounter == 1) {
+						$previous.addClass("destroyed");
+					}
+				}
+			});
+
+		});
 
 		var $remainingLikes = $(".remaining-likes")
 
@@ -102,4 +181,3 @@
 
 
 </script> 
-

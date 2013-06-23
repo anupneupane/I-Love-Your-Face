@@ -100,14 +100,17 @@ img {
 
 .header-logo > a {
 	display: block;
-	font-size: 24px;
+	font-size: 28px;
 	font-weight: bold;
 	padding: 10px 20px;
 	color: #fff;
+	font-family: cursive;
+	text-shadow: -1px 0 #E5B7EB, 0 1px #E5B7EB, 1px 0 #E5B7EB, 0 -1px #E5B7EB;
 }
 
 .header-nav {
 	float: right;
+	padding-top: 10px;
 }
 
 .header-nav > ul {
@@ -125,7 +128,7 @@ img {
 }
 
 .header-nav > ul > li > a:hover {
-	background: #571C30
+	background: #E5B7EB
 }
 
 
@@ -314,8 +317,14 @@ img {
 	float: left;
 }
 
-.homepage > .home-header > .remaining-likes {
-	float: right;
+.remaining-likes {
+	border-radius: 10px;
+	padding-left: 5px;
+}
+
+.remaining-likes > span {
+	padding: 5px;
+	font-size: 16px;
 }
 
 .photo-frame {
