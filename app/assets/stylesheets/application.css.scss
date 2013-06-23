@@ -263,25 +263,25 @@ img {
 	border: 5px solid white;
 }
 
-.add-pics {
+#add-pics {
 	float: left;
 	width: 225px;
+	padding-left: 50px;
 }
 
 .profile-message-form {
 	float: right;
+	position: relative;
 	margin-top: 10px;
 	margin-bottom: 5px;
-	margin-right: 15px;
 	margin-left: 15px;
 	background-color: #E5B7EB;
 	border-radius: 15px;
 	border: 5px solid white;
 }
 
-.profile-message-form > .new-message-form { 
-	margin-right: 50px;
-	background-color: black;
+.profile-message-form > #new-message-form { 
+	margin-right: 65px;
 }
 
 /* SIGNED IN */
@@ -590,30 +590,22 @@ z-index: 0;
 
 /* PROFILE SHOW */
 
-#about-me {
-
+.personal-essays-container {
+	padding-left: 10px;
+	padding-top: 20px;
 }
 
-#about-me > h1 {
+
+.personal-essays-container h1 {
 	font-weight: bold;
-	font-size: 24px;
+	font-family: cursive;
+	font-size: 30px;
+	padding-bottom: 2px;
+	padding-top: 5px;
 }
 
-#about-my_match {
-
-}
-
-#about-my_match > h1 {
-	font-weight: bold;
-	font-size: 24px;
+.personal-essays-container p {
+	padding-bottom: 15px;
 }
 
 
-#dealbreakers {
-
-}
-
-#dealbreakers > h1 {
-	font-weight: bold;
-	font-size: 24px;
-}

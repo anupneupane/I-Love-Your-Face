@@ -40,20 +40,21 @@
 		<div class="personal-essays-container">
 			<div id="about-me">
 				<h1>How I Ended Up Here</h1>
-				<%= @user.about_me %>
+				<p><%= @user.about_me.nil? ? "Nothing here yet..." : @user.about_me %></p>
 			</div>
 			<div id="about-my-match">
 				<h1>What I'll Settle For</h1>
-				<%= @user.about_my_match %>
+				<p><%= @user.about_my_match.nil? ? "Nothing here yet..." : @user.about_my_match %></p>
 			</div>
 			<div id="dealbreakers">
 				<h1>But No Way Will I Accept</h1>
-				<%= @user.dealbreakers %>
+				<p><%= @user.dealbreakers.nil? ? "Nothing here yet..." : @user.dealbreakers %></p>
 			</div>
+			<% if @user.id == current_user.id %>
+				<a href="<%= current_user.id %>/profile">Edit Essays</a>
+			<% end %>
 		</div> 
-		<% if @user.id == current_user.id %>
-			<a href="<%= current_user.id %>/profile">Edit Essays</a>
-		<% end %>
+		
 
 	</section>
 
