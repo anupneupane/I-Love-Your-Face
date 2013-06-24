@@ -27,13 +27,25 @@ class UsersController < ApplicationController
 			first_page = true 
 		end 
 
-		@users = current_user.deselected_users.sort_by! {|user| user.id }.reverse
+		case params[:index]
+		when "browse"
+			@users = current_user.deselected_users.sort_by! do |user| 
+				Liking.where(liking_user_id: user.id, liked_user_id: current_user.id).size
+			end.reverse
+			@user_index = "browse"
+		when "blacklist"
+			@users = current_user.users_ive_shunned.uniq
+			@user_index = "blacklist"
+		else 
+			@users = current_user.deselected_users.sort_by! {|user| user.id }.reverse
+			@user_index = ""
+		end
 
 		total_pages = (@users.size / 6.0).ceil
 
 		@users = @users[start..stop]
 
-		@user_index = ""
+		
 
 		if request.xhr?
 			render partial: "users/master_browse", locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}

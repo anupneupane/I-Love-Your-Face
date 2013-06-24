@@ -55,9 +55,9 @@
 						<li><a href="/messages">Messages</a></li>
 					<% end %>
 					<li><a href="/face_matches">Matches</a></li>
-					<li><a href="/browse">Search</a></li>
+					<li><a href="/?index=browse">Search</a></li>
 					<li><a href="<%= user_path(current_user) %>">Profile</a></li>
-					<li><a href="/blacklist">Blacklist</a></li>
+					<li><a href="/?index=blacklist">Blacklist</a></li>
 				</ul>
 			</div>
 			<div class="remaining-likes" id="my-total-likes"><%= render partial: "users/remaining_likes" %>
