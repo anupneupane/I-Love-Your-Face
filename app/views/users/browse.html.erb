@@ -1,16 +1,15 @@
-<pre> <%= params %> </pre>
-
-
 <div class="homepage">
 	<div class="home-header group">
 
 		<div class="page-title">
 			<% case @user_index %>
 			<% when "browse" %>
-				<h1><%= @user_index.capitalize %></h1>
+				<h1>Browse</h1>
 			<% when "blacklist" %>
 				<h1>Shunned Users</h1>
-			<% when "" %>
+			<% when "matches" %>
+				<h1>Face Matches</h1>
+			<% when "main" %>
 				<h1>Fresh Meat</h1>
 			<% end %>
 		</div> 
@@ -58,10 +57,11 @@
 			
 
 			$.ajax({
-				url: "/" + "<%= @user_index %>",
+				url: "/",
 				type: "GET",
 				data: {
 						"page" : pageCounter,
+						"index" : "<%= @user_index %>"
 					},
 				success: function(data) {
 					$browseMaster.empty();
@@ -82,10 +82,11 @@
 			pageCounter -= 1
 
 			$.ajax({
-				url: "/" + "<%= @user_index %>",
+				url: "/",
 				type: "GET",
 				data: {
 						"page" : pageCounter,
+						"index" : "<%= @user_index %>"
 					},
 				success: function(data) {
 					$browseMaster.empty();

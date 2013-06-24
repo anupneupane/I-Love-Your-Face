@@ -100,10 +100,11 @@
 
 
 				$.ajax({
-				url: "/" + "<%= @user_index %>",
+				url: "/",
 				type: "GET",
 				data: {
-						"page" : <%= page %>
+						"page" : <%= page %>,
+						"index" : "<%= @user_index %>"
 					},
 				success: function(data) {
 					<% if @users.size <= 6 %> 
@@ -139,10 +140,11 @@
 				});
 
 				$.ajax({
-					url: "/" + "<%= @user_index %>",
+					url: "/",
 					type: "GET",
 					data: {
-							"page" : <%= page %>
+							"page" : <%= page %>,
+							"index" : "<%= @user_index %>"
 						},
 					success: function(data) {
 						<% if @users.size <= 6 %> 

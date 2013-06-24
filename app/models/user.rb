@@ -198,13 +198,13 @@ class User < ActiveRecord::Base
     #should fill in the rest with whatever
     #should return 20 results (users)
 
-    results = self.deselected_users
+    deselected_ids = self.deselected_users.map { |user| user.id }
     # like_matches = results.select { |result| self.users_who_like_me.include?(result) }
     face_matches = self.find_face_matches_for_all_types
     # all_matches = (face_matches + like_matches).uniq
 
     # all_matches ## this used to be returned, the algo needs tweaking
-    face_matches
+    face_matches.select { |user| deselected_ids.include?(user.id) }
   end
 
   def remaining_likes
