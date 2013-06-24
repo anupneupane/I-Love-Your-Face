@@ -1,13 +1,21 @@
+
 <div class="homepage">
 	<div class="home-header group">
 
 		<div class="page-title">
-			<h1>Browse</h1>
+			<% case @user_index %>
+			<% when "browse" %>
+				<h1><%= @user_index.capitalize %></h1>
+			<% when "blacklist" %>
+				<h1>Shunned Users</h1>
+			<% when "" %>
+				<h1>Fresh Meat</h1>
+			<% end %>
 		</div> 
 	</div>
 
 	<div class="browse-master"> 
-		<%= render partial: "master_browse", locals: {first_page: first_page, total_pages: total_pages} %>
+		<%= render partial: "master_browse", locals: {first_page: first_page, total_pages: total_pages, page: page} %>
 	</div>
 		<div class="photogrid-nav group">
 			<div class="btn" id="previous-6">
@@ -19,6 +27,9 @@
 		</div> 
 
 </div>
+
+
+
 <script>
 
 	$(document).ready(function () {
@@ -45,7 +56,7 @@
 			
 
 			$.ajax({
-				url: "/browse",
+				url: "/" + "<%= @user_index %>",
 				type: "GET",
 				data: {
 						"page" : pageCounter,
@@ -69,7 +80,7 @@
 			pageCounter -= 1
 
 			$.ajax({
-				url: "/browse",
+				url: "/" + "<%= @user_index %>",
 				type: "GET",
 				data: {
 						"page" : pageCounter,
@@ -87,24 +98,6 @@
 			});
 
 		});
-
-		$(".shun-action").on("click", function () {
-
-			$.ajax({
-				url: "/browse",
-				type: "GET",
-				data: {
-						"page" : pageCounter,
-					},
-				success: function(data) {
-					<% if @users.size <= 6 %> 
-						$next.addClass("destroyed");
-					<% end %>
-					$browseMaster.empty();
-					$browseMaster.html(data);
-				}
-			});		
-		})
 
 
 	})

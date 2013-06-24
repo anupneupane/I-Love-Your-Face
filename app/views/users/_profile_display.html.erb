@@ -13,14 +13,24 @@
 		<% end %>
 		<% if user.id != current_user.id %>
 			<div class="user-interactions group">
-	<!-- 			<%#= render partial: "users/small_stats", locals: {user: user} %> -->
-	<!-- 			<div class="total-likes" id="total-likes-<%= user.id %>"></div> -->
-				<div class="display-name">
-					<%= user.username %>
-				</div>
-				<div class="like-action btn btn-info" id="like-action-<%= user.id %>">Like</div>
-				<div class="shun-action btn btn-danger" id="shun-action-<%= user.id %>">Shun</div>
+				<% if @user_index == "blacklist" %>
+					<div class="display-name">
+						<%= user.username %>
+					</div>
+					<div class="unshun-container">
+						<div class="unshun-action btn btn-danger" id="unshun-action-<%= user.id %>">Un-Shun</div>
+					</div>
+				<% else %>
+		<!-- 			<%#= render partial: "users/small_stats", locals: {user: user} %> -->
+		<!-- 			<div class="total-likes" id="total-likes-<%= user.id %>"></div> -->
+					<div class="display-name">
+						<%= user.username %>
+					</div>
+					<div class="like-action btn btn-info" id="like-action-<%= user.id %>">Like</div>
+					<div class="shun-action btn btn-danger" id="shun-action-<%= user.id %>">Shun</div>
+				<% end %>
 			</div>
+
 
 		<% else %>
 			<div class="user-interactions group">

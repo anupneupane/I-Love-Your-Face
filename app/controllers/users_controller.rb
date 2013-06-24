@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 		else
 			start = 0
 			stop = 5
+			params[:page] = 0
 			first_page = true 
 		end 
 
@@ -32,10 +33,12 @@ class UsersController < ApplicationController
 
 		@users = @users[start..stop]
 
+		@user_index = ""
+
 		if request.xhr?
-			render partial: "users/photo_grid", locals: {first_page: first_page, total_pages: total_pages}
+			render partial: "users/master_browse", locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}
 		else
-			render :index, locals: {first_page: first_page, total_pages: total_pages}
+			render :browse, locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}
 		end
 	end
 
@@ -91,6 +94,7 @@ class UsersController < ApplicationController
 		else
 			start = 0
 			stop = 5
+			params[:page] = 0
 			first_page = true 
 		end 
 
@@ -104,10 +108,12 @@ class UsersController < ApplicationController
 
 		@users = @users[start..stop]
 
+		@user_index = "browse"
+
 		if request.xhr?
-			render partial: "users/master_browse", locals: {first_page: first_page, total_pages: total_pages}
+			render partial: "users/master_browse", locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}
 		else
-			render :browse, locals: {first_page: first_page, total_pages: total_pages}
+			render :browse, locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}
 		end
 	end
 
@@ -118,19 +124,22 @@ class UsersController < ApplicationController
 		else
 			start = 0
 			stop = 5
+			params[:page] = 0
 			first_page = true 
 		end 
 
-		@users = current_user.users_ive_shunned
+		@users = current_user.users_ive_shunned.uniq
 
 		total_pages = (@users.size / 6.0).ceil
 
 		@users = @users[start..stop]
 
+		@user_index = "blacklist"
+
 		if request.xhr?
-			render partial: "users/shunned_grid", locals: {first_page: first_page, total_pages: total_pages}
+			render partial: "users/master_browse", locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}
 		else
-			render :blacklist, locals: {first_page: first_page, total_pages: total_pages}
+			render :browse, locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}
 		end
 	end
 

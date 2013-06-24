@@ -7,7 +7,7 @@
 				<h1>Hmmmm... nothing here</h1>
 			<% end %>
 			<% @users.each do |user| %>
-				<div id="replace-user-<%= user.id %>">
+				<div class="replace-user" id="replace-user-<%= user.id %>">
 					<%= render partial: "profile_display", locals: {user: user} %>
 				</div>
 			<% end %> 
@@ -23,7 +23,9 @@
 
 	$(document).ready(function () {
 
-		
+		var $next = $("#next-6")
+		var $previous = $("#previous-6")
+		var $browseMaster = $(".browse-master")
 
 		var $remainingLikes = $(".remaining-likes")
 
@@ -55,7 +57,6 @@
 							"liking_user_id" : "<%= current_user.id %>"  
 						},
 					success: function(data) {
-						console.log("success!");
 						$remainingLikes.empty();
 						$remainingLikes.html(data)
 						$.ajax({
@@ -97,7 +98,63 @@
 					}
 				});
 
+
+				$.ajax({
+				url: "/" + "<%= @user_index %>",
+				type: "GET",
+				data: {
+						"page" : <%= page %>
+					},
+				success: function(data) {
+					<% if @users.size <= 6 %> 
+						$next.addClass("destroyed");
+					<% end %>
+					$browseMaster.empty();
+					$browseMaster.html(data);
+					}
+				});		
+
 			});
+
+
+			var $UnShunAction = $("#unshun-action-<%= user.id %>")
+
+			$UnShunAction.on("click", function (event) {
+
+				$.ajax({
+					url: "<%= shunning_path(user) %>",
+					type: "DELETE",
+					data: {
+							"shunned_user_id" : "<%= user.id %>",
+							"shunning_user_id" : "<%= current_user.id %>"  
+						},
+					success: function(data) {
+						// explode really doesn't seem to look right, but kind of works
+						var $shunnedUser = $("#replace-user-<%= user.id %>") 
+						var $shunnedUserImage = $("#user-pic-<%= user.id %>") 
+						$shunnedUserImage.effect("explode", {pieces: 9}, 1000);
+						$shunnedUser.empty();
+						$shunnedUser.addClass(".destroyed");
+					}
+				});
+
+				$.ajax({
+					url: "/" + "<%= @user_index %>",
+					type: "GET",
+					data: {
+							"page" : <%= page %>
+						},
+					success: function(data) {
+						<% if @users.size <= 6 %> 
+							$next.addClass("destroyed");
+						<% end %>
+						$browseMaster.empty();
+						$browseMaster.html(data);
+					}
+				});	
+
+			});
+
 
 		<% end %> 
 
