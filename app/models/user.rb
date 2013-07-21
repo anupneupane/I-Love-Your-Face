@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   attr_accessor :face_matches
 
   def profile_pic
-    self.photos.where(is_user: true, is_profile_pic: true).first
+    self.photos.where(is_user: true, is_profile_pic: true).first || self.photos.where(is_user: true).first
   end
 
   has_many :photos
