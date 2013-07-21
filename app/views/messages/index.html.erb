@@ -37,8 +37,11 @@
 										</div>
 										<%= other_person.username %><br>
 									</a>
-										<%= "recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
-										<strong><%= " *new message*" if convo.any? {|message| message.read != true } %></strong>
+										<% if convo.any? {|message| message.read != true } %>
+											<strong>*new message*</strong>
+											<br>
+										<% end %>
+										<%= "Recieved " + time_ago_in_words(convo.last.created_at) + " ago" %>
 									</div>
 									<div class="snipet-preview">
 										<a href="/users/<%= other_person.id %>/messages"><p>
@@ -106,7 +109,6 @@
 
 		<% if @partner %>
 			window.setInterval(function() {
-				
 
 				$.ajax({
 					url: "<%= messages_path %>",
@@ -117,7 +119,7 @@
 					success: function(data) {
 						$convoMessages.empty();
 						$convoMessages.html(data);
-					}
+					},
 				});
 			},1000);
 		<% end %>
