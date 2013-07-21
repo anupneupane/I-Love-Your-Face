@@ -10,7 +10,13 @@
         <div class="carrousel-holder">
           <div id="carrousel">
             <ul>
-              <% user.photos.where(is_user: true).each do |photo| %>
+              <% user_photos = user.photos.where(is_user: true) %>
+              <% profile_index = user_photos.find_index { |p| p.is_profile_pic == true } %>
+              <% unless profile_index.nil? %>
+                <% photo_end = profile_index + 1 %>
+                <% user_photos = [user_photos[profile_index]] + user_photos[0...profile_index] + user_photos[photo_end..-1] %>
+              <% end %>
+              <% user_photos.each do |photo| %>
                 <li>  
                   <img src="<%= photo.image.url(:small) %>" width="225px" height="225px">
                 </li>

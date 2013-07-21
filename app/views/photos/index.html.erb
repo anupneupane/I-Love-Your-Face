@@ -8,11 +8,78 @@
 
   <div class="photo-list"> 
     <% @photos.each do |photo| %>
-      <div class="single-photo-display">
+      <div class="single-photo-display" id="single-photo-<%= photo.id %>">
+
     	  <img src="<%= photo.image.url(:large) %>" height="700px" width="700px">
+        <% if @viewed_user.id == current_user.id %>
+          <div class="photo-actions">
+            <% if photo.is_profile_pic %>
+              <div class="btn disabled primary-selected" id="photo-primary-<%= photo.id %>">Profile Pic</div>
+            <% else %>
+              <div class="btn primary" id="photo-primary-<%= photo.id %>">Make Primary</div>
+            <% end %>
+            <div class="btn delete" id="photo-delete-<%= photo.id %>">Delete</div>
+          </div> 
+        <%end%>
+
       </div>
     <% end %> 
   </div>
 
 
 </div>
+
+
+<script>
+  
+
+  $(document).ready(function(){
+  
+    <% @photos.each do |photo| %>
+
+      var $deleteButton = $("#photo-delete-<%= photo.id %>")
+
+      $deleteButton.on("click", function (data) {
+        var buttonId = data.toElement.id.match(/\d+$/);
+        buttonId = buttonId[0].toString();
+
+        var reallyDelete = confirm("Are you sure you want to delete this photo?")
+        if (reallyDelete === true) {
+          $.ajax({
+            url: "<%= photo_path(photo) %>",
+            type: "DELETE",
+            data: {
+              "photo_id": buttonId
+            },
+            success: function (data) {
+              var photoId = "#single-photo-" + buttonId;
+              $(photoId).addClass("destroyed");
+            }
+          })
+        }
+
+      })
+
+      var $makePrimaryButton = $("#photo-primary-<%= photo.id %>")
+
+      $makePrimaryButton.on("click", function (data) {
+        $.ajax({
+          url: "<%= photo_path(photo) %>",
+          type: "PUT",
+          data: {
+            "photo_id": "<%= photo.id %>",
+            "change_profile_pic" : true
+          },
+          success: function (data) {
+            window.scrollTo(0,0);
+            document.location.reload(true);
+          }
+        })
+      })
+
+    <% end %>
+
+  });
+
+
+</script

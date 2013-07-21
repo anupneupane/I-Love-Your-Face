@@ -61,6 +61,7 @@ img {
 	display: block;
 }
 
+
 /* CLEARFIX */
 
 .group:after {
@@ -678,10 +679,7 @@ z-index: 0;
 	padding-top: 5px;
 }
 
-/*.user-photo-index .photo-list {
-	padding-top: 20px;
-}
-*/
+
 .single-photo-display {
 	padding-bottom: 10px;
 }
@@ -689,3 +687,63 @@ z-index: 0;
 .single-photo-display img {
 	border: 3px solid white;
 }
+
+
+
+.photo-actions {
+	padding-top: 10px;
+} 
+
+.photo-actions .primary {
+	background: #F5CEF5;
+} 
+
+.photo-actions .primary:hover {
+	background: #F582F1;
+} 
+
+.photo-actions .primary-selected {
+	background-color: #F582F1;
+} 
+
+.photo-actions .delete {
+	background: #E88080;
+} 
+
+.photo-actions .delete:hover {
+	background: #FC4E4E;
+} 
+
+/* FORM STYLING */
+
+.photo-add-form label  {
+	font-size: 16px;
+	font-family: cursive;
+	font-weight: bold;
+	padding-top: 20px;
+}
+
+.photo-add-form input {
+	vertical-align: middle;
+}
+
+.radio-descriptor {
+	padding-left: 5px;
+}
+
+.radio-descriptor-subtext {
+	font-size: 12px;
+}
+
+.photo-add-form #submit-button {
+	padding-top: 20px;
+}
+
+.notice {
+	background-color: #F5F2CE;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
+

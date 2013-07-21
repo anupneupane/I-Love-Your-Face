@@ -3,7 +3,6 @@ class MessagesController < ApplicationController
 	before_filter :update_last_seen
 
 	def index 
-		puts "getting ajax request"
 		if params[:user_id]
 			partner_id = params[:user_id]
 			@partner = User.find(partner_id)

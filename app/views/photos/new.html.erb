@@ -1,27 +1,52 @@
-<%= form_for(@photo, html: {multipart: true}) do |f| %>
-	<%= hidden_field_tag "photo[is_user]", "true" %> 
-	<%= hidden_field_tag "photo[approved]", "true" %> 
-	<%= f.file_field :image %>
-	<%= f.label :photo_age, "When was this photo taken?" %>
-	<%= select_tag "photo[photo_age]", options_for_select([['this year', 0], ['last year', 1], ['2 years ago', 2], ['3 years ago', 3], ['4+ years ago', 4]])  %>
-	<%= f.label :single_person, "Just me in this pic" %>
-	<%= radio_button_tag "photo[single_person]", "true", "true" %>Yes
-	<br>
-	<%= radio_button_tag "photo[single_person]", "false" %>No
-	<br>
-	<%= f.label :is_profile_pic, "Main profile pic?" %>
-	<%= radio_button_tag "photo[is_profile_pic]", "true" %>Yes
-	<br>
-	<%= radio_button_tag "photo[is_profile_pic]", "false", "true" %>No
-	<br>
-	<%= f.label :photo_type, "This pic is mostly of my..." %>
-	<%= radio_button_tag "photo[photo_type]", "face", "true" %>Face (only headshots are used for face matching. Incorrectly labeled photos will be deleted)
-	<br>
-	<%= radio_button_tag "photo[photo_type]", "body" %>Body
-	<br>
-	<%= radio_button_tag "photo[photo_type]", "body" %>Both
-	<br>
-	<%= radio_button_tag "photo[photo_type]", "body" %>Neither
-	<br>
-	<%= f.submit "Add Photo" %>
-<% end %> 
+<div class="homepage">
+	<div class="home-header group">
+
+		<div class="page-title">
+			<h1>Let's add some pics!</h1>
+		</div> 
+	</div>
+
+	<div class="photo-add-form"> 
+		<%= form_for(@photo, html: {multipart: true}) do |f| %>
+			<%= hidden_field_tag "photo[is_user]", "true" %> 
+			<%= hidden_field_tag "photo[approved]", "true" %> 
+			<div> 
+				<%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg' %>
+			</div>
+
+			<div>
+				<%= f.label :photo_age, "When was this photo taken?" %>
+				<%= select_tag "photo[photo_age]", options_for_select([['This year', 0], ['Last year', 1], ['Two years ago', 2], ['Three years ago', 3], ['More than four years old', 4]])  %>
+			</div>
+
+			<div>
+				<%= f.label :single_person, "Just me in this pic" %>
+				<%= radio_button_tag "photo[single_person]", "true", "true" %><span class="radio-descriptor">Yes</span>
+				<br>
+				<%= radio_button_tag "photo[single_person]", "false" %><span class="radio-descriptor">No</span>
+			</div>
+
+			<div>
+				<%= f.label :is_profile_pic, "Main profile pic?" %>
+				<%= radio_button_tag "photo[is_profile_pic]", "true" %><span class="radio-descriptor">Yes</span>
+				<br>
+				<%= radio_button_tag "photo[is_profile_pic]", "false", "true" %><span class="radio-descriptor">No</span>
+			</div>
+
+			<div> 
+				<%= f.label :photo_type, "This pic is mostly of my..." %>
+				<%= radio_button_tag "photo[photo_type]", "face", "true" %><span class="radio-descriptor">Face </span><span class="radio-descriptor-subtext">(only headshots are used for face matching)</span>
+				<br>
+				<%= radio_button_tag "photo[photo_type]", "body" %><span class="radio-descriptor">Body</span>
+				<br>
+				<%= radio_button_tag "photo[photo_type]", "both" %><span class="radio-descriptor">Both</span>
+				<br>
+				<%= radio_button_tag "photo[photo_type]", "neither" %><span class="radio-descriptor">Neither</span>
+			</div>
+
+			<div id="submit-button">
+				<%= f.submit "Add Photo", class: "btn" %>
+			<div>
+		<% end %> 
+	</div>
+</div>
