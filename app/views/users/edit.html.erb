@@ -1,28 +1,28 @@
-<h2>Tell us about you...</h2>
+<div class="profile-edit"> 
+  <h1>Tell us about you...</h1>
 
-<%= simple_form_for(@user) do |f| %>
-	<%= f.error_notification %>
+  <%= simple_form_for(@user) do |f| %>
+  	<%= f.error_notification %>
 
-	 <div class="form-inputs">
-	 	<%= f.input :birthdate, as: :date, start_year: Date.today.year - 17,
-      end_year: Date.today.year - 90, order: [:month, :day, :year], 
-      :required => true %>
-    <%= f.input :sex, collection: ["Male", "Female"], as: :radio_buttons, :item_wrapper_class => 'inline', :required => true %>
-    <%= f.label :orientation, "Once you label me, you negate me." %>
-    <%= f.input :orientation, collection: ["Straight", "Gay", "Bisexual", "Asexual"] %>
-    <%= f.input :height %>
-    <%= f.input :weight %>
-    <%= f.input :body_type, collection: ["Thin", "Medium", "Large"] %>
-    <%= f.input :ethnicity, collection: ["Caucasian", "Asian", "African American", "Hispanic", "Native American", "Indian", "Arabic"] %>
-    <%= f.input :relationship_status, collection: ["Foreveralone", "Married", "Playing the field", "Married but looking", "In a serious relationship"] %>
-    <%= f.input :zipcode %>
-  </div>
+  	 <div class="form-inputs">
+  	 	<%= f.input :birthdate, as: :date, start_year: Date.today.year - 17,
+        end_year: Date.today.year - 60, order: [:month, :day, :year], 
+        :required => true %>
+      <%= f.input :sex, collection: ["Male", "Female"], as: :radio_buttons, :item_wrapper_class => 'inline', :required => true %>
+      <%= f.input :orientation, collection: ["Straight", "Gay", "Bisexual", "Asexual"] %>
+      <%= f.input :height, collection: 58..80, label_method: Proc.new { |n| "#{n / 12}' #{n % 12}\"" } %>
+      <%= f.input :weight, collection: 90..300, label_method: Proc.new { |n| "#{n} lbs" }  %>
+      <%= f.input :body_type, collection: ["Thin", "Medium", "Large"] %>
+      <%= f.input :ethnicity, collection: ["Caucasian", "Asian", "African American", "Hispanic", "Native American", "Indian", "Arabic"] %>
+      <%= f.input :relationship_status, collection: ["Foreveralone", "Playing the field", "Looking for our third", "Seeking something serious"] %>
+      <%= f.input :zipcode %>
+    </div>
 
 
-	<div>
-    <%= f.button :submit, "Submit" %>
-  </div>
-<% end %>
-
+  	<div>
+      <%= f.button :submit, "Submit" %>
+    </div>
+  <% end %>
+</div>
 
 

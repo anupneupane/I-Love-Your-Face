@@ -2,12 +2,12 @@
 
 <div class="vital-stats">
 	<ul>
-		<li>Hometown: <%= @user.zipcode || " -- " %></li>
-		<li>Height: <%= @user.height || " -- " %></li>
-		<li>Weight: <%= @user.weight || " -- " %></li>
-		<li>Body Type: <%= @user.body_type || " -- " %></li>
-		<li>Ethnicity: <%= @user.ethnicity || " -- " %></li>
-		<li>Orientation: <%= @user.orientation || " -- " %></li>
-		<li>Relationship Status: <%= @user.relationship_status || " -- " %></li>
+		<li><span class="profile-detail">Hometown:</span> <%= @user.zipcode || " -- " %></li>
+		<li><span class="profile-detail">Height:</span> <%= "#{@user.height / 12}' #{@user.height % 12}\"" || " -- " if @user.height %></li>
+		<li><span class="profile-detail">Weight:</span> <%= @user.weight.to_s + " lbs" || " -- " if @user.weight %></li>
+		<li><span class="profile-detail">Body Type:</span> <%= @user.body_type || " -- " %></li>
+		<li><span class="profile-detail">Ethnicity:</span> <%= @user.ethnicity || " -- " %></li>
+		<li><span class="profile-detail">Orientation:</span> <%= @user.orientation || " -- " %></li>
+		<li><span class="profile-detail">Relationship Status:</span> <%= @user.relationship_status || " -- " %></li>
 	</ul>
 </div> 

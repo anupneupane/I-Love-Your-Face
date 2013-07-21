@@ -26,10 +26,10 @@ class User < ActiveRecord::Base
 	  end
 	end
   
-  attr_accessor :profile_pic, :face_matches
+  attr_accessor :face_matches
 
   def profile_pic
-    @profile_pic || self.photos.where(is_user: true).first 
+    self.photos.where(is_user: true, is_profile_pic: true).first
   end
 
   has_many :photos
@@ -202,9 +202,8 @@ class User < ActiveRecord::Base
     # like_matches = results.select { |result| self.users_who_like_me.include?(result) }
     face_matches = self.find_face_matches_for_all_types
     # all_matches = (face_matches + like_matches).uniq
-
     # all_matches ## this used to be returned, the algo needs tweaking
-    face_matches.select { |user| deselected_ids.include?(user.id) }
+    face_matches.compact.select { |user| deselected_ids.include?(user.id) }
   end
 
   def remaining_likes

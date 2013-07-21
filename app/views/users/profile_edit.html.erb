@@ -1,16 +1,22 @@
-<h2>Tell us about you...</h2>
+<div class="profile-edit"> 
+  <h1>All About You</h1>
 
-<%= simple_form_for(@user, {url: "/users/profile"}) do |f| %>
-	<%= f.error_notification %>
+  <div class="essays-form">
+  <%= form_for(@user, {url: "/users/profile"}) do |f| %>
+  	 <div>
+      <%= f.label :about_me, "I ended up here because..." %>
+      <%= f.text_area :about_me, :style => "width: 380px; border-radius: 15px", :rows => "5" %>
+      <br>
+      <%= f.label :about_my_match, "I'll settle for..." %>
+      <%= f.text_area :about_my_match, :style => "width: 380px; border-radius: 15px", :rows => "5" %>
+      <br>
+      <%= f.label :dealbreakers, "But I will never accept..." %>
+      <%= f.text_area :dealbreakers, :style => "width: 380px; border-radius: 15px", :rows => "5" %>
+    </div>
+  </div> 
 
-	 <div class="form-inputs">
-    <%= f.input :about_me, :autofocus => true %>
-    <%= f.input :about_my_match %>
-    <%= f.input :dealbreakers %>
-  </div>
-
-
-	<div>
-    <%= f.button :submit, "Submit" %>
-  </div>
-<% end %>
+  	<div>
+      <%= submit_tag("Save Essays") %>
+    </div>
+  <% end %>
+</div>

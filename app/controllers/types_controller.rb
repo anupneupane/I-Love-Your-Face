@@ -12,7 +12,7 @@ class TypesController < ApplicationController
 		@type.user_id = current_user.id 
 		@type.save!
 
-		redirect_to :back
+		redirect_to users_path(index: "matches")
 	end
 
 

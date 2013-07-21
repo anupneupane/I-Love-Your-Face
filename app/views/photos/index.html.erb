@@ -1,5 +1,18 @@
-<h1>this person's photos</h1>
+<div class="homepage">
+  
+  <div class="home-header">
+    <div class="page-title">
+      <h1><%= @viewed_user.username %>'s photos</h1>
+    </div> 
+  </div>
 
-<% @photos.each do |photo| %>
-	<img src="<%= photo.image.url(:large) %>">
-<% end %> 
+  <div class="photo-list"> 
+    <% @photos.each do |photo| %>
+      <div class="single-photo-display">
+    	  <img src="<%= photo.image.url(:large) %>" height="700px" width="700px">
+      </div>
+    <% end %> 
+  </div>
+
+
+</div>

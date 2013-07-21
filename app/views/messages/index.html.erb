@@ -27,7 +27,13 @@
 									<% other_person = convo.last.sender %>
 									<a href="/users/<%= other_person.id %>">
 										<div class="single-message-thumb">
-											<img src="<%= other_person.profile_pic.image.url(:thumb) %>" alt="" width="50" height="50">
+											<% if other_person.profile_pic %>
+												<img src="<%= other_person.profile_pic.image.url(:thumb) %>" alt="" width="50" height="50">
+											<% else %>
+												<div class="small-anon-pic">
+													<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut" alt="" width="50" height="50">
+												</div>
+											<% end %>
 										</div>
 										<%= other_person.username %><br>
 									</a>

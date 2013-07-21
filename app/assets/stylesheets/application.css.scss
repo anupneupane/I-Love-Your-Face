@@ -634,3 +634,49 @@ z-index: 0;
 }
 
 
+/* PROFILE SHOW */
+
+.profile-edit h1 {
+	font-weight: bold;
+	font-family: cursive;
+	font-size: 30px;
+	padding-bottom: 2px;
+	padding-top: 5px;
+}
+
+.profile-detail {
+	font-weight: bold;
+}
+
+.small-anon-pic {
+	display: box;
+	height: 50px;
+	width: 50px;
+}
+
+.small-anon-pic img {
+	height: 50px;
+	width: 50px;
+	border: 2px solid white;
+}
+
+
+.user-photo-index h1 {
+	font-weight: bold;
+	font-family: cursive;
+	font-size: 30px;
+	padding-bottom: 2px;
+	padding-top: 5px;
+}
+
+/*.user-photo-index .photo-list {
+	padding-top: 20px;
+}
+*/
+.single-photo-display {
+	padding-bottom: 10px;
+}
+
+.single-photo-display img {
+	border: 3px solid white;
+}

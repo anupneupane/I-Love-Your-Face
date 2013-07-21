@@ -7,8 +7,6 @@ class PhotosController < ApplicationController
 			@viewed_user = User.find(params[:user_id])
 			@photos = @viewed_user.photos.where(is_user: true)
 		end
-
-		puts "NOOOOOOO"
 	end 
 
 
@@ -18,22 +16,21 @@ class PhotosController < ApplicationController
 
 	def create 
 		@photo = Photo.new(params[:photo])
+
 		@photo.user_id = current_user.id 
 
 		# take care of existing profile pics, don't forget to do this on update and delete!
 		if @photo.is_profile_pic
-			current_user.photos.where(is_user: true).map! { |photo| photo.is_profile_pic = false }
+			current_user.photos.each do |photo| 
+				photo.is_profile_pic = false
+				photo.save!
+			end
 		end
 
-		if @photo.save!
-
-			#again, set the profile pic on the user for easy access
-			if @photo.is_profile_pic
-				current_user.profile_pic = @photo
-			end
-			
+		if @photo.save
 			redirect_to :back
 		else
+			flash[:notice] = 'Image did not save. Both width and height must be at least 700 pixels.'
 			redirect_to :back
 		end
 	end

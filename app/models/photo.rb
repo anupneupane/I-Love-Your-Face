@@ -8,8 +8,17 @@ class Photo < ActiveRecord::Base
 		thumb: "50x50#"
 	}
 
+  validate :file_dimensions, :unless => "errors.any?", on: :create
 
 	belongs_to :user
 
 	has_many :type_photos
+
+  def file_dimensions
+    dimensions = Paperclip::Geometry.from_file(self.image.queued_for_write[:original].path)
+    if dimensions.width < 700 || dimensions.height < 700
+      errors.add(:image, 'Both width and height must be at least 700 pixels')
+    end
+  end
+
 end

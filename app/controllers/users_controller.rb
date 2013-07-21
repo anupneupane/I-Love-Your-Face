@@ -45,8 +45,10 @@ class UsersController < ApplicationController
 		end
 
 		total_pages = (@users.size / 6.0).ceil
-
+		total_pages = 1 if total_pages == 0
 		@users = @users[start..stop]
+
+		return redirect_to new_type_path if @user_index == "matches" && @users.size == 0
 
 		if request.xhr?
 			render partial: "users/master_browse", locals: {first_page: first_page, total_pages: total_pages, page: params[:page]}

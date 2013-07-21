@@ -9,7 +9,13 @@
 
 			<header class="single-message-header-right group">
 				<div class="single-message-thumb">
-					<a href="#"><img src="<%= current_user.profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+					<% if current_user.profile_pic %>
+						<a href="#"><img src="<%= current_user.profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+					<% else %>
+						<div class="small-anon-pic">
+							<a href="#"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut" alt="" width="50" height="50"></a>
+						</div>
+					<% end %>
 				</div>
 				<div class="single-message-info">
 					<h2><a href="#">
@@ -26,7 +32,13 @@
 	<div class="single-message group">
 	 	<header class="single-message-header-left group">
 			<div class="single-message-thumb">
-				<a href="#"><img src="<%= User.find(message.sender_id).profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+				<% if %>
+					<a href="#"><img src="<%= User.find(message.sender_id).profile_pic.image.url(:thumb) %>" alt="" width="50" height="50"></a>
+				<% else %>
+					<div class="small-anon-pic">
+						<a href="#"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTzokyVmgb8OiC4dVtoGcHXFAhvzyqm1TmDssGtKE-l0oYU66ut" alt="" width="50" height="50"></a>
+					</div>
+				<% end %>
 			</div>
 			<div class="single-message-info">
 				<h2><a href="#">
