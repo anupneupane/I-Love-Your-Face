@@ -301,7 +301,7 @@ img {
 	font-size: 18px;
 }
 
-/* USER INDEX */
+/* TOP OF PAGE LAYOUT */
 
 .homepage {
 
@@ -319,6 +319,19 @@ img {
 	padding-bottom: 10px;
 }
 
+.page-sub-title > h2 {
+	font-weight: bold;
+	font-size: 20px;
+	padding-bottom: 10px
+}
+
+.page-sub-title > p {
+	padding-bottom: 10px;
+
+}
+
+
+/* USER INDEX */
 .remaining-likes {
 	border-radius: 10px;
 	padding-left: 5px;
@@ -747,3 +760,22 @@ z-index: 0;
 	font-weight: bold;
 }
 
+/* FACE MATCHES */
+
+
+.type-photo-upload {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.type-match-form-actions {
+	padding-top: 20px;
+}
+
+.type-match-submit {
+	margin-left: 20px;
+}
+
+#add-type-pics {
+	float: left;
+}
