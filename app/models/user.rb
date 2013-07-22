@@ -134,7 +134,7 @@ class User < ActiveRecord::Base
   end
 
   def add_all_pics_to_album
-    photos_of_me = self.photos.select { |photo| photo.is_user == true }
+    photos_of_me = self.photos.select { |photo| photo.is_user == true && photo.photo_type == "face" }
     photos_of_me.each { |pic| add_pic_to_album(pic) }
   end
 
