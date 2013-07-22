@@ -75,6 +75,7 @@
 					},
 				success: function(data) {
 					var $totalLikes = $("#total-likes-<%= @user.id %>")
+					$totalLikes.empty();
 					$totalLikes.html(data);
 				}
 			});
@@ -92,7 +93,6 @@
 						"liking_user_id" : "<%= current_user.id %>"  
 					},
 				success: function(data) {
-					console.log("success!");
 					$remainingLikes.empty();
 					$remainingLikes.html(data)
 					$.ajax({
@@ -123,15 +123,16 @@
 				type: "POST",
 				data: {
 						"shunned_user_id" : "<%= @user.id %>",
-						"shunning_user_id" : "<%= current_user.id %>"  
+						"shunning_user_id" : "<%= current_user.id %>",
+						"on_profile" : "true"						
 					},
 				success: function(data) {
-					// explode really doesn't seem to look right, but kind of works
 					var $shunnedUser = $("#user-frame-<%= @user.id %>") 
 					var $shunnedUserImage = $("#user-pic-<%= @user.id %>")
 					$likeAction.off();
 					$shunAction.off();
 					$interactionNav.empty();
+					window.location = "<%= root_url %>";
 				}
 			});
 

@@ -14,9 +14,9 @@ class LikingsController < ApplicationController
 			user.num_likes -= 1
 			user.save!
 		end
-	
+
 		if request.xhr?
-			render partial: "users/remaining_likes"
+			render partial: "users/remaining_likes", locals: {remaining_likes: user.num_likes}
 		else
 			redirect_to root_url
 		end

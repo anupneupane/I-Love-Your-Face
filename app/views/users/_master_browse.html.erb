@@ -58,7 +58,7 @@
 						},
 					success: function(data) {
 						$remainingLikes.empty();
-						$remainingLikes.html(data)
+						$remainingLikes.html(data);
 						$.ajax({
 							url: "users/<%= user.id %>/likings",
 							type: "GET",
@@ -71,6 +71,7 @@
 								$totalLikes.html(data);
 							}
 						});
+						
 					}
 				});
 

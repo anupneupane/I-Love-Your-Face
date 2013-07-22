@@ -1,5 +1,6 @@
-<% if current_user.remaining_likes > 0 %>
-	<span class="label label-info">Remaining Likes: <%= current_user.remaining_likes %></span>
+
+<% if remaining_likes > 0 %>
+	<span class="label label-info">Remaining Likes: <%= remaining_likes %></span>
 <% else %>
 	<span class="label label-inverse">Remaining Likes: 0</span>
 	<p>You'll get more tomorrow, don't worry!</p>

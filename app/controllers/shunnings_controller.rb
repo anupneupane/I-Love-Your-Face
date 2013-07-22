@@ -5,8 +5,10 @@ class ShunningsController < ApplicationController
 	def create
 		@shunning = Shunning.new(shunned_user_id: params[:shunned_user_id], shunning_user_id: params[:shunning_user_id])
 		@shunning.save!
+		shunned_user_name = User.find(params[:shunned_user_id]).username
 
 		if request.xhr?
+			flash[:notice] = "Don't worry, " + shunned_user_name + " won't be bothering you anymore." if params[:on_profile] == "true"
 			render nothing: true
 		else
 			redirect_to root_url

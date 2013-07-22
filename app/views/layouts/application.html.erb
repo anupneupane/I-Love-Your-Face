@@ -62,7 +62,7 @@
 					<li><a href="/?index=blacklist">Blacklist</a></li>
 				</ul>
 			</div>
-			<div class="remaining-likes" id="my-total-likes"><%= render partial: "users/remaining_likes" %>
+			<div class="remaining-likes" id="my-total-likes"><%= render partial: "users/remaining_likes", locals: {remaining_likes: current_user.num_likes} %>
 			</div> 
 		<% end %> 
 	</div> 
