@@ -22,7 +22,6 @@ class Photo < ActiveRecord::Base
   end
 
   def match
-    puts self.is_user
     self.is_user
   end 
 end
