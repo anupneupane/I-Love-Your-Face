@@ -188,8 +188,7 @@ class User < ActiveRecord::Base
     @face_matches.map { |match| User.find_by_username(match[0]) }
   end
 
-  # you can add in similar face matches later!
-
+  #add in similar face matches later!
 
   def best_matches
     #use this for the front page photo grid
@@ -199,7 +198,6 @@ class User < ActiveRecord::Base
     #should give second priority to people who have liked you
     #should give third priority to new members
     #should fill in the rest with whatever
-    #should return 20 results (users)
 
     deselected_ids = self.deselected_users.map { |user| user.id }
     # like_matches = results.select { |result| self.users_who_like_me.include?(result) }
