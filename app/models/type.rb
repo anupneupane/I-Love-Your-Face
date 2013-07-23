@@ -17,7 +17,7 @@ class Type < ActiveRecord::Base
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_gender"
     urls = pic.image.url
-    app_name = "facemate_alpha2"
+    app_name = "facemate_beta1_gender"
 
     response = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")  
 
@@ -32,7 +32,7 @@ class Type < ActiveRecord::Base
     urls = pic.image.url
 
     gender = find_pic_gender(pic)
-    app_name = "facemate_" + gender
+    app_name = "facemate_beta1_" + gender
 
     response = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")  
 

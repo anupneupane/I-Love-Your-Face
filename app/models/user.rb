@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_gender"
     urls = pic.image.url
-    app_name = "facemate_alpha2"
+    app_name = "facemate_beta1_gender"
 
     response = Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")  
 
@@ -114,6 +114,7 @@ class User < ActiveRecord::Base
     #this does the work of calling the API with add method
     #there are albums for men and women. 
     #if the person hasn't specified their own gender one will be assigned to them. 
+    # facemate album buckets are currently facemate_beta1_male and facemate_beta1_female
     if self.sex.nil?
       gender = find_pic_gender(pic)
       gender == "male" ? self.sex = "Male" : "Female"
@@ -124,10 +125,11 @@ class User < ActiveRecord::Base
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_add_[#{self.username}]"
     urls = pic.image.url
+
     if self.sex == "Male"
-      app_name = "facemate_male"
+      app_name = "facemate_beta1_male"
     else
-      app_name = "facemate_female"
+      app_name = "facemate_beta1_female"
     end
 
     Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&urls=#{urls}&name_space=#{app_name}")
@@ -140,11 +142,12 @@ class User < ActiveRecord::Base
 
 
   def train_album
+    # facemate album buckets are currently facemate_beta1_male and facemate_beta1_female
     api_key = "EANeodQhAiTEapGd"
     api_secret = "aMAD2iBa1vtIRoI9"
     jobs = "face_train"
-    app_name1 = "facemate_male"
-    app_name2 = "facemate_female"
+    app_name1 = "facemate_beta1_male"
+    app_name2 = "facemate_beta1_female"
 
     Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name1}")
     Unirest::post("http://rekognition.com/func/api/?api_key=#{api_key}&api_secret=#{api_secret}&jobs=#{jobs}&name_space=#{app_name2}")
