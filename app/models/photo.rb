@@ -1,7 +1,6 @@
 class Photo < ActiveRecord::Base
 	attr_accessible :user_id, :photo_type, :photo_age, :approved, 
-									:single_person, :is_user, :is_profile_pic, 
-                  :is_match, :image
+									:single_person, :is_user, :is_profile_pic, :image
 
 	has_attached_file :image, styles: { 
 		large: "700x700>",
@@ -9,7 +8,7 @@ class Photo < ActiveRecord::Base
 		thumb: "50x50#"
 	}
 
-  validate :file_dimensions, :if => :not_match, :unless => "errors.any?", on: :create
+  validate :file_dimensions, :unless => "errors.any?", on: :create
 
 	belongs_to :user
 
@@ -22,7 +21,4 @@ class Photo < ActiveRecord::Base
     end
   end
 
-  def not_match
-    !self.is_match
-  end
 end

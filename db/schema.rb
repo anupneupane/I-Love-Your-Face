@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723013046) do
+ActiveRecord::Schema.define(:version => 20130614025247) do
 
   create_table "feedbacks", :force => true do |t|
     t.integer  "feedback_giver_id"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20130723013046) do
     t.integer  "user_id"
     t.boolean  "single_person"
     t.boolean  "approved"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20130723013046) do
     t.integer  "photo_age"
     t.string   "photo_type"
     t.boolean  "is_profile_pic"
-    t.boolean  "is_match",           :default => false
   end
 
   add_index "photos", ["user_id"], :name => "index_photos_on_user_id"

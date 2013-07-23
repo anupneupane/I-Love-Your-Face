@@ -9,7 +9,6 @@
 	<div class="photo-add-form"> 
 		<%= form_for(@photo, html: {multipart: true}) do |f| %>
 			<%= hidden_field_tag "photo[is_user]", "true" %>
-			<%= hidden_field_tag "photo[is_match]", "false" %> 
 			<%= hidden_field_tag "photo[approved]", "true" %> 
 			<div> 
 				<%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg' %>
