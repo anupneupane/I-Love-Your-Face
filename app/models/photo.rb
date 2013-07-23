@@ -8,7 +8,7 @@ class Photo < ActiveRecord::Base
 		thumb: "50x50#"
 	}
 
-  validate :file_dimensions, :if => :not_match, :unless => "errors.any?", on: :create
+  validate :file_dimensions, :if => :match, :unless => "errors.any?", on: :create
 
 	belongs_to :user
 
@@ -21,7 +21,8 @@ class Photo < ActiveRecord::Base
     end
   end
 
-  def not_match
-    !self.is_user
+  def match
+    puts self.is_user
+    self.is_user
   end 
 end
