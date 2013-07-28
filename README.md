@@ -4,8 +4,7 @@ I Love Your Face
 My capstone project at App Academy, this dating site uses a facial recognition API to match users to others they find attractive. The site is hosted with Heroku at http://iloveyourface.herokuapp.com/
 
 ###Guest Accounts
-username: jessica (or george)
-password: tester
+username: jessica (or george) / password: tester
 
 ### Technologies 
 0. Ruby on Rails backend
